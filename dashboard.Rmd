@@ -73,7 +73,7 @@ instacart |>
   )
 ```
 
-### Number of Snack Items Ordered, by Aisle
+### Number of Snack Items Ordered, by Aisle 
 
 ```{r}
 instacart |> 
@@ -83,6 +83,6 @@ instacart |>
   plot_ly(x = ~aisle, y = ~n, color = ~aisle, type = "bar", colors = "viridis") |> 
   layout(
     xaxis = list(title = "Aisle", tickangle = 60),
-    yaxis = list(title = "Number of items ordered"))
+    yaxis = list(title = "Number of snacks"))
 ```
 
