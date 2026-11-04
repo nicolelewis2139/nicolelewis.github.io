@@ -1,0 +1,21 @@
+name: "My website"
+output_dir: "."
+navbar:
+  title: "Nicole Lewis"
+  left:
+    - icon: fa-bars
+      menu: 
+       - text: "Home"
+         href: index.html
+       - text: "CV"
+         href: cv.html
+  right:
+    - icon: fa-envelope fa-lg
+      href: mailto:nel2139@cumc.columbia.edu
+    - icon: fa-github fa-lg
+      href: http://github.com/nicolelewis2139/
+    - icon: fa-linkedin fa-lg
+      href: https://www.linkedin.com/in/nicolelewis-mph/
+output:
+  html_document:
+    theme: flatly
