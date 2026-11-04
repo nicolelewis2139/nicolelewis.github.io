@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Nicole Lewis" />
+
+<meta name="date" content="2026-11-04" />
+
+<title>plots</title>
+
+<script src="site_libs/header-attrs-2.32/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.12.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Nicole Lewis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-bars"></span>
+     
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="index.html">Home</a>
+    </li>
+    <li>
+      <a href="cv.html">CV</a>
+    </li>
+    <li>
+      <a href="dashboard.html">Dashboard</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:nel2139@cumc.columbia.edu">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/nicolelewis2139/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/nicolelewis-mph/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">plots</h1>
+<h4 class="author">Nicole Lewis</h4>
+<h4 class="date">2026-11-04</h4>
+
+</div>
+
+
+<p>This RMD file is to test plots before putting them onto
+flexdashboard.</p>
+<p>Loading libraries</p>
+<pre class="r"><code>library(tidyverse)
+library(p8105.datasets)
+library(plotly)</code></pre>
+<p>Loading data</p>
+<pre class="r"><code>data(instacart)
+
+instacart = 
+  instacart |&gt; 
+  select(product_name, aisle, department, order_hour_of_day, reordered)</code></pre>
+<p>Scatterplot</p>
+<pre class="r"><code>instacart |&gt; 
+  filter(department == &quot;snacks&quot;) |&gt; 
+  group_by(product_name, aisle) |&gt; 
+  summarize(
+    n_orders = n(),
+    reorder_rate = mean(reordered), 
+    .groups = &quot;drop&quot;) |&gt; 
+  filter(n_orders &gt;= 100) |&gt; 
+  mutate(text_label = str_c(
+    &quot;Product: &quot;, product_name,
+    &quot;\nOrders: &quot;, n_orders,
+    &quot;\nReorder rate: &quot;, round(reorder_rate, 2)
+  )) |&gt; 
+  plot_ly(
+    x = ~n_orders, y = ~reorder_rate, type = &quot;scatter&quot;, mode = &quot;markers&quot;,
+    color = ~aisle, text = ~text_label, alpha = 0.5, colors = &quot;viridis&quot;
+  ) |&gt; 
+  layout(
+    title = &quot;Snack Popularity vs. Reorder Rate&quot;,
+    xaxis = list(title = &quot;Number of times ordered&quot;),
+    yaxis = list(title = &quot;Proportion reordered&quot;)
+  )</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-436708ce3528a8a4a1ae" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-436708ce3528a8a4a1ae">{"x":{"visdat":{"f2b11363461":["function () ","plotlyVisDat"]},"cur_data":"f2b11363461","attrs":{"f2b11363461":{"x":{},"y":{},"mode":"markers","text":{},"color":{},"colors":"viridis","alpha":0.5,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Snack Popularity vs. Reorder Rate","xaxis":{"domain":[0,1],"automargin":true,"title":"Number of times ordered"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Proportion reordered"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[265,461,172,197,259,100,205,188,408,150,177,120],"y":[0.63773584905660374,0.70715835140997829,0.65116279069767447,0.56345177664974622,0.80308880308880304,0.58999999999999997,0.59024390243902436,0.68085106382978722,0.64460784313725494,0.54000000000000004,0.56497175141242939,0.57499999999999996],"mode":"markers","text":["Product: Almonds<br />Orders: 265<br />Reorder rate: 0.64","Product: Almonds & Sea Salt in Dark Chocolate<br />Orders: 461<br />Reorder rate: 0.71","Product: Bar, Toffee & Almonds in Milk Chocolate<br />Orders: 172<br />Reorder rate: 0.65","Product: Dark with 70% Cacao Content Organic Chocolate Bar<br />Orders: 197<br />Reorder rate: 0.56","Product: Milk Chocolate Almonds<br />Orders: 259<br />Reorder rate: 0.8","Product: Orange Peel In Dark Chocolate Bar<br />Orders: 100<br />Reorder rate: 0.59","Product: Organic 85% Cacao Dark Chocolate Bar<br />Orders: 205<br />Reorder rate: 0.59","Product: Organic Bagged Mini Dark Peanut Butter<br />Orders: 188<br />Reorder rate: 0.68","Product: Organic Dark Chocolate Peanut Butter Cups<br />Orders: 408<br />Reorder rate: 0.64","Product: Organic Deep Dark Sea Salt Chocolate<br />Orders: 150<br />Reorder rate: 0.54","Product: Organic Milk Chocolate Peanut Butter Cups<br />Orders: 177<br />Reorder rate: 0.56","Product: Toffee & Sea Salt Milk Chocolate Bar<br />Orders: 120<br />Reorder rate: 0.58"],"type":"scatter","name":"candy chocolate","marker":{"color":"rgba(68,1,84,0.5)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,0.5)"},"error_y":{"color":"rgba(68,1,84,0.5)"},"error_x":{"color":"rgba(68,1,84,0.5)"},"line":{"color":"rgba(68,1,84,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[377,134,311,173,237,104,211,187,140,226,249,325,153,343,249,128,114,122,189,124,146,218,234,110,267,117,991,117,112,288,280,121,149,473,118,258,118,416,637,239,272,325,114,151,162,524,208,104,282,753,152,185,163,146,271,122,398,597,117,150,707,511,108,308,233,257,301,272,181,104,196,148,124,101,334,100,209,148],"y":[0.70026525198938994,0.61940298507462688,0.58842443729903537,0.65317919075144504,0.6371308016877637,0.61538461538461542,0.56398104265402849,0.68449197860962563,0.6785714285714286,0.52654867256637172,0.58634538152610438,0.79692307692307696,0.64052287581699341,0.6005830903790087,0.55421686746987953,0.5703125,0.7192982456140351,0.61475409836065575,0.68783068783068779,0.69354838709677424,0.68493150684931503,0.56422018348623848,0.63247863247863245,0.60909090909090913,0.550561797752809,0.57264957264957261,0.6458123107971746,0.52991452991452992,0.5267857142857143,0.4861111111111111,0.625,0.46280991735537191,0.56375838926174493,0.63424947145877375,0.55084745762711862,0.56976744186046513,0.56779661016949157,0.64182692307692313,0.64364207221350078,0.48117154811715479,0.6029411764705882,0.53230769230769226,0.59649122807017541,0.33112582781456956,0.51234567901234573,0.51145038167938928,0.4375,0.43269230769230771,0.74468085106382975,0.61354581673306774,0.70394736842105265,0.4702702702702703,0.84662576687116564,0.64383561643835618,0.51660516605166051,0.66393442622950816,0.56281407035175879,0.64321608040201006,0.59829059829059827,0.78000000000000003,0.6223479490806223,0.6320939334637965,0.5,0.56493506493506496,0.59227467811158796,0.68482490272373542,0.60797342192691028,0.43014705882352944,0.60220994475138123,0.75,0.61734693877551017,0.41216216216216217,0.70161290322580649,0.6633663366336634,0.68562874251497008,0.60999999999999999,0.70334928229665072,0.58783783783783783],"mode":"markers","text":["Product: Aged White Cheddar Baked Rice & Corn Puffs Gluten Free Lunch Packs<br />Orders: 377<br />Reorder rate: 0.7","Product: Aged White Cheddar Gluten-Free Baked Rice And Corn Puffs<br />Orders: 134<br />Reorder rate: 0.62","Product: Backyard Barbeque Potato Chips<br />Orders: 311<br />Reorder rate: 0.59","Product: Baked Rice and Corn Puffs, Aged White Cheddar<br />Orders: 173<br />Reorder rate: 0.65","Product: Barbecue Potato Chips<br />Orders: 237<br />Reorder rate: 0.64","Product: Bite Size Tortilla Chips<br />Orders: 104<br />Reorder rate: 0.62","Product: Blue Chips Corn Tortilla Chips<br />Orders: 211<br />Reorder rate: 0.56","Product: Cheese Puffs<br />Orders: 187<br />Reorder rate: 0.68","Product: Cheese Puffs Original<br />Orders: 140<br />Reorder rate: 0.68","Product: Classic Mix Variety<br />Orders: 226<br />Reorder rate: 0.53","Product: Classic Potato Chips<br />Orders: 249<br />Reorder rate: 0.59","Product: Corn Chips<br />Orders: 325<br />Reorder rate: 0.8","Product: Corn Tortilla Chips<br />Orders: 153<br />Reorder rate: 0.64","Product: Dark Chocolate Pretzels with Sea Salt<br />Orders: 343<br />Reorder rate: 0.6","Product: Everything Deli Style Pretzel Crisps Crackers<br />Orders: 249<br />Reorder rate: 0.55","Product: Garden Salsa Multigrain Chips<br />Orders: 128<br />Reorder rate: 0.57","Product: Gluten Free Covered Pretzels Yogurt<br />Orders: 114<br />Reorder rate: 0.72","Product: Gluten Free Mini Pretzels<br />Orders: 122<br />Reorder rate: 0.61","Product: Gluten Free Pretzel Sticks<br />Orders: 189<br />Reorder rate: 0.69","Product: Gluten Free Pretzel Twists<br />Orders: 124<br />Reorder rate: 0.69","Product: Gluten-Free Red Hot Blues Made with Organic Blue  Corn Tortilla Chips<br />Orders: 146<br />Reorder rate: 0.68","Product: Harvest Cheddar Multigrain Chips<br />Orders: 218<br />Reorder rate: 0.56","Product: Hint of Lime Flavored Tortilla Chips<br />Orders: 234<br />Reorder rate: 0.63","Product: Honey Dijon Potato Chips<br />Orders: 110<br />Reorder rate: 0.61","Product: Jalapeno Potato Chips<br />Orders: 267<br />Reorder rate: 0.55","Product: Krinkle Cut Sea Salt Potato Chips<br />Orders: 117<br />Reorder rate: 0.57","Product: Lightly Salted Baked Snap Pea Crisps<br />Orders: 991<br />Reorder rate: 0.65","Product: Mediterranean Vegetable Chips<br />Orders: 117<br />Reorder rate: 0.53","Product: Mini Pretzels<br />Orders: 112<br />Reorder rate: 0.53","Product: Multigrain Pita Chips<br />Orders: 288<br />Reorder rate: 0.49","Product: Multigrain Tortilla Chips<br />Orders: 280<br />Reorder rate: 0.62","Product: Nacho Cheese Chips<br />Orders: 121<br />Reorder rate: 0.46","Product: Nacho Cheese Tortilla Chips<br />Orders: 149<br />Reorder rate: 0.56","Product: Organic Blue Corn Tortilla Chips<br />Orders: 473<br />Reorder rate: 0.63","Product: Organic Fuji Red Apple Chips<br />Orders: 118<br />Reorder rate: 0.55","Product: Organic Lightly Salted Sea Salt Thin & Crispy Restaurant Style Tortilla Chips<br />Orders: 258<br />Reorder rate: 0.57","Product: Organic Sea Salt Potato Chips<br />Orders: 118<br />Reorder rate: 0.57","Product: Organic Simply Naked Pita Chips<br />Orders: 416<br />Reorder rate: 0.64","Product: Organic Tortilla Chips<br />Orders: 637<br />Reorder rate: 0.64","Product: Original Potato Chips<br />Orders: 239<br />Reorder rate: 0.48","Product: Original Real Vegetable Chips<br />Orders: 272<br />Reorder rate: 0.6","Product: Original Restaurant Style Tortilla Chips<br />Orders: 325<br />Reorder rate: 0.53","Product: Oven Baked Cheddar & Sour Cream Potato Crisps<br />Orders: 114<br />Reorder rate: 0.6","Product: Parmesan Garlic Pita Chips<br />Orders: 151<br />Reorder rate: 0.33","Product: Pirate's Booty Aged White Cheddar Baked Rice and Corn Puffs<br />Orders: 162<br />Reorder rate: 0.51","Product: Pita Chips Simply Naked<br />Orders: 524<br />Reorder rate: 0.51","Product: Pita Chips, Simply Naked, Party Size<br />Orders: 208<br />Reorder rate: 0.44","Product: Pita Crisps Simply Naked<br />Orders: 104<br />Reorder rate: 0.43","Product: Plantain Chips<br />Orders: 282<br />Reorder rate: 0.74","Product: Pretzel Crisps Original Deli Style Pretzel Crackers<br />Orders: 753<br />Reorder rate: 0.61","Product: Pretzel Rods<br />Orders: 152<br />Reorder rate: 0.7","Product: Pretzel Sticks<br />Orders: 185<br />Reorder rate: 0.47","Product: Pub Mix<br />Orders: 163<br />Reorder rate: 0.85","Product: Restaurant Style Organic Chia & Quinoa Tortilla Chips<br />Orders: 146<br />Reorder rate: 0.64","Product: Salt & Pepper Krinkle Chips<br />Orders: 271<br />Reorder rate: 0.52","Product: Salted Peanut Butter Filled Pretzels<br />Orders: 122<br />Reorder rate: 0.66","Product: Scoops! Tortilla Chips<br />Orders: 398<br />Reorder rate: 0.56","Product: Sea Salt & Vinegar Potato Chips<br />Orders: 597<br />Reorder rate: 0.64","Product: Sea Salt Brown Rice Crackers<br />Orders: 117<br />Reorder rate: 0.6","Product: Sea Salt Made With Organic Grain Rice Chips<br />Orders: 150<br />Reorder rate: 0.78","Product: Sea Salt Pita Chips<br />Orders: 707<br />Reorder rate: 0.62","Product: Sea Salt Potato Chips<br />Orders: 511<br />Reorder rate: 0.63","Product: Simply Naked Pita Chips<br />Orders: 108<br />Reorder rate: 0.5","Product: Sour Cream & Onion Potato Chips<br />Orders: 308<br />Reorder rate: 0.56","Product: Sweet Potato Tortilla Chips<br />Orders: 233<br />Reorder rate: 0.59","Product: Thick & Crispy Tortilla Chips<br />Orders: 257<br />Reorder rate: 0.68","Product: Thin & Light Tortilla Chips<br />Orders: 301<br />Reorder rate: 0.61","Product: Tiny Twists Pretzels<br />Orders: 272<br />Reorder rate: 0.43","Product: Tortilla Chips, Clasico, Jalapeno Lime<br />Orders: 181<br />Reorder rate: 0.6","Product: Tortilla Chips, Corn, Red Hot Blues<br />Orders: 104<br />Reorder rate: 0.75","Product: Tortilla Chips, Mexican Kitchen Style, Salted<br />Orders: 196<br />Reorder rate: 0.62","Product: Tortilla Strips Restaurant Style<br />Orders: 148<br />Reorder rate: 0.41","Product: Vegan Aged White Cheddar Flavor Puffs<br />Orders: 124<br />Reorder rate: 0.7","Product: Vegetable Chips, Taro, Sea Salt<br />Orders: 101<br />Reorder rate: 0.66","Product: Veggie Chips<br />Orders: 334<br />Reorder rate: 0.69","Product: Wavy Original Potato Chips<br />Orders: 100<br />Reorder rate: 0.61","Product: Whole Grain White Corn Salted Tortilla Chips<br />Orders: 209<br />Reorder rate: 0.7","Product: of Hanover 100 Calorie Pretzels Mini<br />Orders: 148<br />Reorder rate: 0.59"],"type":"scatter","name":"chips pretzels","marker":{"color":"rgba(72,40,120,0.5)","line":{"color":"rgba(72,40,120,1)"}},"textfont":{"color":"rgba(72,40,120,0.5)"},"error_y":{"color":"rgba(72,40,120,0.5)"},"error_x":{"color":"rgba(72,40,120,0.5)"},"line":{"color":"rgba(72,40,120,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[156,614,174,172,195,140,380,113,128,126,116,111,232,170,150,123,109],"y":[0.60897435897435892,0.56188925081433228,0.5977011494252874,0.51744186046511631,0.74871794871794872,0.57857142857142863,0.60526315789473684,0.61061946902654862,0.7734375,0.80952380952380953,0.63793103448275867,0.56756756756756754,0.45689655172413796,0.58823529411764708,0.72666666666666668,0.6097560975609756,0.6330275229357798],"mode":"markers","text":["Product: Chocolate Chip Cookie<br />Orders: 156<br />Reorder rate: 0.61","Product: Chocolate Chip Cookies<br />Orders: 614<br />Reorder rate: 0.56","Product: Cookies, Chocolate Chip Walnut<br />Orders: 174<br />Reorder rate: 0.6","Product: Double Stuf Oreo Sandwich Cookies<br />Orders: 172<br />Reorder rate: 0.52","Product: Fig Newmans Fruit Filled Cookies<br />Orders: 195<br />Reorder rate: 0.75","Product: Fudge Mint Cookies<br />Orders: 140<br />Reorder rate: 0.58","Product: Gluten Free Chocolate Chip Cookies<br />Orders: 380<br />Reorder rate: 0.61","Product: Honey Graham Sticks<br />Orders: 113<br />Reorder rate: 0.61","Product: Little Bites Chocolate Chip Muffins<br />Orders: 128<br />Reorder rate: 0.77","Product: Mini Chocolate Chunk Cookies<br />Orders: 126<br />Reorder rate: 0.81","Product: Newman O's Creme Filled Chocolate Cookies<br />Orders: 116<br />Reorder rate: 0.64","Product: Nilla Wafers<br />Orders: 111<br />Reorder rate: 0.57","Product: Oreo Chocolate Sandwich Cookies<br />Orders: 232<br />Reorder rate: 0.46","Product: Original Chocolate Chip Cookies<br />Orders: 170<br />Reorder rate: 0.59","Product: Original Rice Krispies Treats<br />Orders: 150<br />Reorder rate: 0.73","Product: Rice Krispies Treats Original Crispy Marshmallow Squares<br />Orders: 123<br />Reorder rate: 0.61","Product: Whole Wheat Cookies Dark Chocolate<br />Orders: 109<br />Reorder rate: 0.63"],"type":"scatter","name":"cookies cakes","marker":{"color":"rgba(62,74,137,0.5)","line":{"color":"rgba(62,74,137,1)"}},"textfont":{"color":"rgba(62,74,137,0.5)"},"error_y":{"color":"rgba(62,74,137,0.5)"},"error_x":{"color":"rgba(62,74,137,0.5)"},"line":{"color":"rgba(62,74,137,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[227,124,362,149,397,135,150,156,150,168,142,230,437,245,120,254,110,394,266,155,494,227,192,110,145,110,155,134,151,143,363,144,245,222,270,276,176,228,311,311,150,231,120,114,332,141,325,126,168,123,107,196,129,307,132],"y":[0.5770925110132159,0.62096774193548387,0.69889502762430944,0.64429530201342278,0.52896725440806047,0.65925925925925921,0.60666666666666669,0.55128205128205132,0.76666666666666672,0.72023809523809523,0.75352112676056338,0.5347826086956522,0.62013729977116705,0.72244897959183674,0.70833333333333337,0.70866141732283461,0.62727272727272732,0.64720812182741116,0.62030075187969924,0.43225806451612903,0.72874493927125505,0.48458149779735682,0.55729166666666663,0.5636363636363636,0.64827586206896548,0.65454545454545454,0.59354838709677415,0.53731343283582089,0.63576158940397354,0.72027972027972031,0.61432506887052341,0.69444444444444442,0.7142857142857143,0.62612612612612617,0.53333333333333333,0.59782608695652173,0.57954545454545459,0.59210526315789469,0.43729903536977494,0.57234726688102899,0.64000000000000001,0.5714285714285714,0.57499999999999996,0.76315789473684215,0.46686746987951805,0.64539007092198586,0.48307692307692307,0.63492063492063489,0.61904761904761907,0.64227642276422769,0.58878504672897192,0.66326530612244894,0.56589147286821706,0.67426710097719866,0.63636363636363635],"mode":"markers","text":["Product: 6 OZ LA PANZANELLA CROSTINI ORIGINAL CRACKERS<br />Orders: 227<br />Reorder rate: 0.58","Product: Almond Flour Fine Ground Sea Salt Crackers<br />Orders: 124<br />Reorder rate: 0.62","Product: Almond Nut & Rice Cracker Snacks<br />Orders: 362<br />Reorder rate: 0.7","Product: Baked Snack Crackers Original<br />Orders: 149<br />Reorder rate: 0.64","Product: Cheddar Bunnies Snack Crackers<br />Orders: 397<br />Reorder rate: 0.53","Product: Cheddar Cheese Nut Thins Cracker Snacks<br />Orders: 135<br />Reorder rate: 0.66","Product: Cheddar Snack Crackers Cheddar Bunnies<br />Orders: 150<br />Reorder rate: 0.61","Product: Cheese Square Crackers<br />Orders: 156<br />Reorder rate: 0.55","Product: Cheez-It Baked Snack Crackers<br />Orders: 150<br />Reorder rate: 0.77","Product: Cheez-It Cheddar Cracker<br />Orders: 168<br />Reorder rate: 0.72","Product: Classic Round Crackers<br />Orders: 142<br />Reorder rate: 0.75","Product: Crackers<br />Orders: 230<br />Reorder rate: 0.53","Product: Crackers Cheddar Bunnies Snack Packs<br />Orders: 437<br />Reorder rate: 0.62","Product: Crackers Harvest Whole Wheat<br />Orders: 245<br />Reorder rate: 0.72","Product: Crispy Cheddar Crackers<br />Orders: 120<br />Reorder rate: 0.71","Product: Crispy Wheat, Crackers<br />Orders: 254<br />Reorder rate: 0.71","Product: Gluten Free Multi Seed Rice Thin Crackers<br />Orders: 110<br />Reorder rate: 0.63","Product: Goldfish Cheddar Baked Snack Crackers<br />Orders: 394<br />Reorder rate: 0.65","Product: Goldfish Cheddar Baked Snack Crackers Multi Packs<br />Orders: 266<br />Reorder rate: 0.62","Product: Herb Crackers<br />Orders: 155<br />Reorder rate: 0.43","Product: Hint Of Sea Salt Almond Nut Thins<br />Orders: 494<br />Reorder rate: 0.73","Product: Honey Maid Graham Crackers<br />Orders: 227<br />Reorder rate: 0.48","Product: Lightly Salted Rice Cakes<br />Orders: 192<br />Reorder rate: 0.56","Product: Multi Grain Crispbread<br />Orders: 110<br />Reorder rate: 0.56","Product: Multi-Seed Original Crackers<br />Orders: 145<br />Reorder rate: 0.65","Product: Organic Animal Crackers<br />Orders: 110<br />Reorder rate: 0.65","Product: Organic Brown Rice Cake Salt-Free<br />Orders: 155<br />Reorder rate: 0.59","Product: Organic Cheddar Bunnies<br />Orders: 134<br />Reorder rate: 0.54","Product: Organic Classic Rich Crackers<br />Orders: 151<br />Reorder rate: 0.64","Product: Organic Golden Round Crackers<br />Orders: 143<br />Reorder rate: 0.72","Product: Organic Lightly Salted Brown Rice Cakes<br />Orders: 363<br />Reorder rate: 0.61","Product: Organic Mini Sandwich Crackers Cheddar Cheese<br />Orders: 144<br />Reorder rate: 0.69","Product: Organic Mini Sandwich Crackers Peanut Butter<br />Orders: 245<br />Reorder rate: 0.71","Product: Organic Stoneground Wheat Crackers<br />Orders: 222<br />Reorder rate: 0.63","Product: Organic Wheat Square Crackers<br />Orders: 270<br />Reorder rate: 0.53","Product: Organic Wheat-Free & Gluten-Free Original Crackers<br />Orders: 276<br />Reorder rate: 0.6","Product: Original Baked Snack Crackers<br />Orders: 176<br />Reorder rate: 0.58","Product: Original Baked Whole Grain Wheat Crackers<br />Orders: 228<br />Reorder rate: 0.59","Product: Original Black Box Tablewater Cracker<br />Orders: 311<br />Reorder rate: 0.44","Product: Original Fresh Stack Crackers<br />Orders: 311<br />Reorder rate: 0.57","Product: Original Gluten Free Crackers<br />Orders: 150<br />Reorder rate: 0.64","Product: Original Wheat Thins<br />Orders: 231<br />Reorder rate: 0.57","Product: Original Wheat Thins Crackers<br />Orders: 120<br />Reorder rate: 0.58","Product: Pecan Nut & Rice Cracker Snacks<br />Orders: 114<br />Reorder rate: 0.76","Product: Premium Original Saltine Crackers<br />Orders: 332<br />Reorder rate: 0.47","Product: Rosemary Mini Croccantini<br />Orders: 141<br />Reorder rate: 0.65","Product: Saltine Crackers<br />Orders: 325<br />Reorder rate: 0.48","Product: Sesame Whole Wheat Crackers<br />Orders: 126<br />Reorder rate: 0.63","Product: Super Seed Crispy Crackers<br />Orders: 168<br />Reorder rate: 0.62","Product: Thin Stackers Brown Rice Lightly Salted<br />Orders: 123<br />Reorder rate: 0.64","Product: Triscuit Baked Whole Grain Wheat Rosemary & Olive Oil<br />Orders: 107<br />Reorder rate: 0.59","Product: Wheat Thins Reduced Fat Crackers<br />Orders: 196<br />Reorder rate: 0.66","Product: Whole Grain Cheddar Baked Goldfish Crackers<br />Orders: 129<br />Reorder rate: 0.57","Product: Whole Grain Cheddar Baked Snack Crackers<br />Orders: 307<br />Reorder rate: 0.67","Product: Whole Wheat Crackers<br />Orders: 132<br />Reorder rate: 0.64"],"type":"scatter","name":"crackers","marker":{"color":"rgba(49,104,142,0.5)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,0.5)"},"error_y":{"color":"rgba(49,104,142,0.5)"},"error_x":{"color":"rgba(49,104,142,0.5)"},"line":{"color":"rgba(49,104,142,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[122,252,192,129,145,126,192,104,131,127,114,154,101,184,265,186,170,141,359,202,167,135,361,164,238,104,199,451,169,137,125,303,108,299,111,199,275,104,159,136,149,104,150,176,329],"y":[0.49180327868852458,0.61111111111111116,0.5625,0.52713178294573648,0.6344827586206897,0.61111111111111116,0.57291666666666663,0.52884615384615385,0.59541984732824427,0.49606299212598426,0.63157894736842102,0.6428571428571429,0.71287128712871284,0.45108695652173914,0.61132075471698111,0.543010752688172,0.5117647058823529,0.50354609929078009,0.74651810584958223,0.48019801980198018,0.71856287425149701,0.57037037037037042,0.67036011080332414,0.71341463414634143,0.58823529411764708,0.66346153846153844,0.74371859296482412,0.71396895787139691,0.56804733727810652,0.64233576642335766,0.83199999999999996,0.64686468646864681,0.62037037037037035,0.61204013377926425,0.55855855855855852,0.72864321608040206,0.59636363636363632,0.74038461538461542,0.62893081761006286,0.5220588235294118,0.53691275167785235,0.72115384615384615,0.71333333333333337,0.60795454545454541,0.71732522796352582],"mode":"markers","text":["Product: Acai Berry Chia Bar<br />Orders: 122<br />Reorder rate: 0.49","Product: Apple Pie Fruit & Nut Food Bar<br />Orders: 252<br />Reorder rate: 0.61","Product: Blueberry Muffin Bar<br />Orders: 192<br />Reorder rate: 0.56","Product: Blueberry Protein Bar<br />Orders: 129<br />Reorder rate: 0.53","Product: Brownie Crunch High Protein Bar<br />Orders: 145<br />Reorder rate: 0.63","Product: Caramel Almond and Sea Salt Nut Bar<br />Orders: 126<br />Reorder rate: 0.61","Product: Cherry Pie Fruit & Nut Bar<br />Orders: 192<br />Reorder rate: 0.57","Product: Chewy 25% Low Sugar Chocolate Chip Granola<br />Orders: 104<br />Reorder rate: 0.53","Product: Chewy Granola Bar Chocolate Chip Granola<br />Orders: 131<br />Reorder rate: 0.6","Product: Chewy Granola Bars Variety Pack<br />Orders: 127<br />Reorder rate: 0.5","Product: Chocolate Brownie Energy Bar<br />Orders: 114<br />Reorder rate: 0.63","Product: Chocolate Chip<br />Orders: 154<br />Reorder rate: 0.64","Product: Chocolate Mint Builder's Bar<br />Orders: 101<br />Reorder rate: 0.71","Product: Chocolate Peanut Butter<br />Orders: 184<br />Reorder rate: 0.45","Product: Chocolate Sea Salt<br />Orders: 265<br />Reorder rate: 0.61","Product: Coconut  Chocolate Bar<br />Orders: 186<br />Reorder rate: 0.54","Product: Coconut Chia Bar<br />Orders: 170<br />Reorder rate: 0.51","Product: Coconut Cream Pie<br />Orders: 141<br />Reorder rate: 0.5","Product: Crunchy Oats 'n Honey Granola Bars<br />Orders: 359<br />Reorder rate: 0.75","Product: Crunchy Oats N' Honey Granola Bars<br />Orders: 202<br />Reorder rate: 0.48","Product: Crunchy Peanut Butter Energy Bar<br />Orders: 167<br />Reorder rate: 0.72","Product: Dark Chocolate Nuts & Sea Salt Bars<br />Orders: 135<br />Reorder rate: 0.57","Product: Gluten Free Dark Chocolate Chunk Chewy with a Crunch Granola Bars<br />Orders: 361<br />Reorder rate: 0.67","Product: Gluten Free Lemonzest Nutrition bar<br />Orders: 164<br />Reorder rate: 0.71","Product: Gluten Free Peanut Butter Dark Chocolate Chewy With a Crunch Granola Bars<br />Orders: 238<br />Reorder rate: 0.59","Product: High Protein Bar Chunky Peanut Butter<br />Orders: 104<br />Reorder rate: 0.66","Product: Iced Oatmeal Cookie Kid Z Bar<br />Orders: 199<br />Reorder rate: 0.74","Product: Kids Organic Chocolate Chip ZBars<br />Orders: 451<br />Reorder rate: 0.71","Product: Lemon Fruit & Nut Food Bar<br />Orders: 169<br />Reorder rate: 0.57","Product: Maple Pumpkin Seeds with Sea Salt Chewy with a Crunch Granola Bars<br />Orders: 137<br />Reorder rate: 0.64","Product: Nutz Over Chocolate<br />Orders: 125<br />Reorder rate: 0.83","Product: Oats & Honey Gluten Free Granola<br />Orders: 303<br />Reorder rate: 0.65","Product: Organic  Sweet & Salty Peanut Pretzel Granola Bars<br />Orders: 108<br />Reorder rate: 0.62","Product: Organic Chocolate Chip Chewy Granola Bars<br />Orders: 299<br />Reorder rate: 0.61","Product: Organic Vanilla Chip Chewy Granola<br />Orders: 111<br />Reorder rate: 0.56","Product: Peanut Butter Bar<br />Orders: 199<br />Reorder rate: 0.73","Product: Peanut Butter Chocolate Chip Fruit & Nut Food Bar<br />Orders: 275<br />Reorder rate: 0.6","Product: Peanut Butter Chocolate Chip Macrobar<br />Orders: 104<br />Reorder rate: 0.74","Product: Peanut Butter Cookie<br />Orders: 159<br />Reorder rate: 0.63","Product: Peanut Butter Dark Chocolate + Protein Bar<br />Orders: 136<br />Reorder rate: 0.52","Product: Peanut Butter Egg White Protein Bar<br />Orders: 149<br />Reorder rate: 0.54","Product: S'mores Luna Bar<br />Orders: 104<br />Reorder rate: 0.72","Product: Sweet & Salty Nut Granola Bars Peanut<br />Orders: 150<br />Reorder rate: 0.71","Product: White Chocolate Macadamia Nut Energy Bar<br />Orders: 176<br />Reorder rate: 0.61","Product: ZBar Organic Chocolate Brownie Energy Snack<br />Orders: 329<br />Reorder rate: 0.72"],"type":"scatter","name":"energy granola bars","marker":{"color":"rgba(38,130,142,0.5)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,0.5)"},"error_y":{"color":"rgba(38,130,142,0.5)"},"error_x":{"color":"rgba(38,130,142,0.5)"},"line":{"color":"rgba(38,130,142,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[155,124,269,180,141,489,140,284,475,138,475,684,190,115],"y":[0.59999999999999998,0.54032258064516125,0.73234200743494426,0.6333333333333333,0.37588652482269502,0.70143149284253581,0.67142857142857137,0.75352112676056338,0.61473684210526314,0.53623188405797106,0.6294736842105263,0.6871345029239766,0.63684210526315788,0.57391304347826089],"mode":"markers","text":["Product: Annie Peely Fruit 4.5 Z<br />Orders: 155<br />Reorder rate: 0.6","Product: Annie's Bunny Fruit Snacks Variety<br />Orders: 124<br />Reorder rate: 0.54","Product: Apple Cinnamon GoGo Squeez<br />Orders: 269<br />Reorder rate: 0.73","Product: Baked Caesar Snapea Crisps<br />Orders: 180<br />Reorder rate: 0.63","Product: Chives<br />Orders: 141<br />Reorder rate: 0.38","Product: Mixed Fruit Fruit Snacks<br />Orders: 489<br />Reorder rate: 0.7","Product: Organic Apple Banana GoGo Squeez<br />Orders: 140<br />Reorder rate: 0.67","Product: Organic Apple Slices<br />Orders: 284<br />Reorder rate: 0.75","Product: Organic Bunny Fruit Snacks Berry Patch<br />Orders: 475<br />Reorder rate: 0.61","Product: Organic Bunny Fruit Tropical Treat Fruit Snacks<br />Orders: 138<br />Reorder rate: 0.54","Product: Organic Summer Strawberry Bunny Fruit Snacks<br />Orders: 475<br />Reorder rate: 0.63","Product: Original Veggie Straws<br />Orders: 684<br />Reorder rate: 0.69","Product: Sea Salt Roasted Seaweed<br />Orders: 190<br />Reorder rate: 0.64","Product: Strawberry Flavored Organic Z Fruit Rope<br />Orders: 115<br />Reorder rate: 0.57"],"type":"scatter","name":"fruit vegetable snacks","marker":{"color":"rgba(31,158,137,0.5)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,0.5)"},"error_y":{"color":"rgba(31,158,137,0.5)"},"error_x":{"color":"rgba(31,158,137,0.5)"},"line":{"color":"rgba(31,158,137,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[104],"y":[0.39423076923076922],"mode":"markers","text":"Product: Genuine Chocolate Flavor Syrup<br />Orders: 104<br />Reorder rate: 0.39","type":"scatter","name":"ice cream toppings","marker":{"color":"rgba(53,183,121,0.5)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,0.5)"},"error_y":{"color":"rgba(53,183,121,0.5)"},"error_x":{"color":"rgba(53,183,121,0.5)"},"line":{"color":"rgba(53,183,121,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[160,444,134,148,219,124,111,321,178,117,420,106,513,476,104,216,157,308,380,292,121,115,129,389,448,121,107],"y":[0.36249999999999999,0.36711711711711714,0.63432835820895528,0.70270270270270274,0.43378995433789952,0.70161290322580649,0.52252252252252251,0.84112149532710279,0.48314606741573035,0.65811965811965811,0.56904761904761902,0.5,0.60038986354775825,0.59453781512605042,0.75,0.43981481481481483,0.54140127388535031,0.55519480519480524,0.59473684210526312,0.6404109589041096,0.58677685950413228,0.60869565217391308,0.51162790697674421,0.53727506426735216,0.6205357142857143,0.18181818181818182,0.47663551401869159],"mode":"markers","text":["Product: Chopped Pecans<br />Orders: 160<br />Reorder rate: 0.36","Product: Chopped Walnuts<br />Orders: 444<br />Reorder rate: 0.37","Product: Dried Mangoes<br />Orders: 134<br />Reorder rate: 0.63","Product: Dried Mangos<br />Orders: 148<br />Reorder rate: 0.7","Product: Dried Sweetened Cranberries<br />Orders: 219<br />Reorder rate: 0.43","Product: Dry Roasted Almonds<br />Orders: 124<br />Reorder rate: 0.7","Product: Dry Roasted Lightly Salted Peanuts<br />Orders: 111<br />Reorder rate: 0.52","Product: Extra Fancy Unsalted Mixed Nuts<br />Orders: 321<br />Reorder rate: 0.84","Product: Marcona Almonds<br />Orders: 178<br />Reorder rate: 0.48","Product: Organic Freeze Dried Strawberries<br />Orders: 117<br />Reorder rate: 0.66","Product: Organic Medjool Dates<br />Orders: 420<br />Reorder rate: 0.57","Product: Organic Sweetened Cranberries<br />Orders: 106<br />Reorder rate: 0.5","Product: Organic Thompson Seedless Raisins<br />Orders: 513<br />Reorder rate: 0.6","Product: Organic Whole Cashews<br />Orders: 476<br />Reorder rate: 0.59","Product: Pistachios<br />Orders: 104<br />Reorder rate: 0.75","Product: Pitted Dates<br />Orders: 216<br />Reorder rate: 0.44","Product: Pitted Prunes<br />Orders: 157<br />Reorder rate: 0.54","Product: Raisins<br />Orders: 308<br />Reorder rate: 0.56","Product: Roasted & Salted Almonds<br />Orders: 380<br />Reorder rate: 0.59","Product: Roasted Salted Cashews<br />Orders: 292<br />Reorder rate: 0.64","Product: Roasted Salted Peanuts<br />Orders: 121<br />Reorder rate: 0.59","Product: Snack Size Vanilla Yogurt Raisins<br />Orders: 115<br />Reorder rate: 0.61","Product: Toasted Coconut Chips Original Recipe<br />Orders: 129<br />Reorder rate: 0.51","Product: Walnut Halves & Pieces<br />Orders: 389<br />Reorder rate: 0.54","Product: Whole Almonds<br />Orders: 448<br />Reorder rate: 0.62","Product: Whole Chia Seeds<br />Orders: 121<br />Reorder rate: 0.18","Product: Whole Natural Value Pack Almonds<br />Orders: 107<br />Reorder rate: 0.48"],"type":"scatter","name":"nuts seeds dried fruit","marker":{"color":"rgba(109,205,89,0.5)","line":{"color":"rgba(109,205,89,1)"}},"textfont":{"color":"rgba(109,205,89,0.5)"},"error_y":{"color":"rgba(109,205,89,0.5)"},"error_x":{"color":"rgba(109,205,89,0.5)"},"line":{"color":"rgba(109,205,89,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[552,136,546,497,130,147,135,111,308,221,330,273,164,370],"y":[0.63043478260869568,0.56617647058823528,0.65201465201465203,0.62977867203219318,0.50769230769230766,0.7142857142857143,0.6074074074074074,0.3963963963963964,0.66558441558441561,0.72398190045248867,0.51818181818181819,0.80586080586080588,0.64634146341463417,0.53243243243243243],"mode":"markers","text":["Product: 100 Calorie  Per Bag Popcorn<br />Orders: 552<br />Reorder rate: 0.63","Product: Aged White Cheddar Popcorn<br />Orders: 136<br />Reorder rate: 0.57","Product: Baked Aged White Cheddar Rice and Corn Puffs<br />Orders: 546<br />Reorder rate: 0.65","Product: Boomchickapop Sea Salt Popcorn<br />Orders: 497<br />Reorder rate: 0.63","Product: Boomchickapop Sweet & Salty Kettle Corn<br />Orders: 130<br />Reorder rate: 0.51","Product: Corn Puffs with Aged White Cheddar (Lunch Packs)<br />Orders: 147<br />Reorder rate: 0.71","Product: Lightly Sweet Popcorn<br />Orders: 135<br />Reorder rate: 0.61","Product: Organic Popcorn<br />Orders: 111<br />Reorder rate: 0.4","Product: Organic White Cheddar Popcorn<br />Orders: 308<br />Reorder rate: 0.67","Product: Original Beef Jerky<br />Orders: 221<br />Reorder rate: 0.72","Product: Original Popcorn<br />Orders: 330<br />Reorder rate: 0.52","Product: Popcorn<br />Orders: 273<br />Reorder rate: 0.81","Product: Smartfood White Cheddar Cheese Popcorn<br />Orders: 164<br />Reorder rate: 0.65","Product: White Cheddar Popcorn<br />Orders: 370<br />Reorder rate: 0.53"],"type":"scatter","name":"popcorn jerky","marker":{"color":"rgba(180,222,44,0.5)","line":{"color":"rgba(180,222,44,1)"}},"textfont":{"color":"rgba(180,222,44,0.5)"},"error_y":{"color":"rgba(180,222,44,0.5)"},"error_x":{"color":"rgba(180,222,44,0.5)"},"line":{"color":"rgba(180,222,44,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[200,113,105,533],"y":[0.52000000000000002,0.55752212389380529,0.46666666666666667,0.78611632270168852],"mode":"markers","text":["Product: Organic Cheddar Snack Mix<br />Orders: 200<br />Reorder rate: 0.52","Product: Organic Snack Mix Bunnies Snack Mix, Organic<br />Orders: 113<br />Reorder rate: 0.56","Product: Traditional Snack Mix<br />Orders: 105<br />Reorder rate: 0.47","Product: Trail Mix<br />Orders: 533<br />Reorder rate: 0.79"],"type":"scatter","name":"trail mix snack mix","marker":{"color":"rgba(253,231,37,0.5)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,0.5)"},"error_y":{"color":"rgba(253,231,37,0.5)"},"error_x":{"color":"rgba(253,231,37,0.5)"},"line":{"color":"rgba(253,231,37,0.5)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>Boxplot</p>
+<pre class="r"><code>set.seed(1)
+instacart |&gt; 
+  filter(!department %in% c(&quot;missing&quot;,&quot;other&quot;)) |&gt; 
+  sample_n(10000) |&gt; 
+  mutate(department = fct_reorder(department, order_hour_of_day)) |&gt; 
+  plot_ly(
+    y = ~ order_hour_of_day, 
+    color = ~department, 
+    type = &quot;box&quot;, 
+    colors = &quot;viridis&quot;) |&gt; 
+  layout(
+    title = &quot;Time of Day Items Are Ordered, by Department&quot;,
+    xaxis = list(title = &quot;Department&quot;, tickangle = 60),
+    yaxis = list(title = &quot;Hour of day order was placed&quot;)
+  )</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-8494739b24d9bac82955" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-8494739b24d9bac82955">{"x":{"visdat":{"f2b607bec3e":["function () ","plotlyVisDat"]},"cur_data":"f2b607bec3e","attrs":{"f2b607bec3e":{"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"box"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Time of Day Items Are Ordered, by Department","xaxis":{"domain":[0,1],"automargin":true,"title":"Department","tickangle":60},"yaxis":{"domain":[0,1],"automargin":true,"title":"Hour of day order was placed"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"fillcolor":"rgba(68,1,84,0.5)","y":[10,11,10,11,15,13,11,17,12,5],"type":"box","name":"bulk","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"line":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(72,22,104,0.5)","y":[1,16,10,12,19,18,19,11,10,10,16,19,17,17,17,13,9,12,7,11,21,14,17,17,10,11,17,8,12,10,13,15,18,13,11,13,13,17,22,15,10,11,16,14,11,18,12,9,9,18,12,17,17,14,15,18,14,16,17,18,19,23,19,20,15,8,11,21,14,12,15,12,10,12,10,10,11,14,12,13,19,9,9,13,13,12,18,13,16,8,16,11,15,7,16,10,17,18,14,13,15,10,13,18,14,9,19,14,18,17,16,9,18,11,9,14,12,17,9,8,19,13,14,10,10,8,9,9,8,19,17,18,15,10,10,21,12,10,9,20,11,7,19,11,8,16,16,11,8,15,18,18,12,9,17,14,8,19,13,9,17,13,15,13,13,17,16,14,10,17,11,7,17,15,9,11,20,13,14,14,9,12,8,12,10,1,14,18,12,17,13,15,13,13,9,12,17,17,14,15,9,11,15,15,11,20,11,16,9,22,16,12,19,19,14,9,11,11,9,15,8,12,15,20,11,11,12,14,22,15,16,12,13,12,14,12,11,11,13,11,19,10,17,13,15,12,11,8,15,12,18,19,18,15,14,9,13,14,15,9,10,12,11,13,11,16,11,11,13,17,13,21,21,17,12,17,10,14,10,16,10,9,14,11,17,14,9,20,17,8,8,20,17,17,16,14,18,13,16,10,10,11,9,20,12,13,20,18,18,8,9,12,15,17,15,13,12,12,9,13,9,17,15,15,5,10,15,23,21,16,12,8,16,15,20,17,20,7,18,12,19,15,13,16,16,14,11,9,10,21,14,9,9,7,7,7,12,9,14,10,15,23,19,10,11,17,14,19,10,12,8,10,15,15,12,15,21,20,8,15,17,7,21,13,10,13,10,8,15,11,11,14,16,13,10,9,19,16,21,18,12,15,17,11,22,9,11,14,15,13,8,23,2,10,11,16,19,8,10,14,12,16,17,15,17,9,15,15,8,14,10,9,22,10,12,17,9,14,17,21,11,8,14,10,17,12,14,19,9,17,10,6,17,10,15,14,12,17,12,16,18,14,10,12,11,13,20,10,23,20,10,18,14,11,19,12,13,2,11,11,12,0,9,21,7,16,10,11,7,12,12,15,12,10,18,15,10,12,9,8,14,13,14,20,18,14,21,9,13,14,9,16,16,15,13,13,15,10,10,10,10,15,19,17,21,23,10,14,12,16,10,12,9,15,15,20,23,11,19,9,14,9,11,15,17,21,18,22,17,5,13,17,17,18,6,13,15,14,19,8,13,10,12,9,11,17,16,12,19,10,9,9,11,12,17,10,11,12,10,12,10,21,12,11,7,10,9,15,15,8,17,16,14,8,21,10,10,10,17,13,12,15,13,21,11,12,7,15,13,13,18,12,11,17,17,14,8,15,14,19,10,23,8,8,15,16,14,20,8,16,8,7,10,17,8,17,14,22,16,18,14,14,11,19,10,21,12,12,12,15,18,15,9,19,16,10,17,14,12,8,10,14,16,12,11,20,20,12,17,15,16,17,12,20,11,10,12,17,23,7,10,17,17,12,14,15,10,21,9,14,13,9,16,11,19,13,10,12,12,21,20,7,9,12,7,12,9,12,14,16,14,8,22,17,15,9,21,23,13,12,10,20,14,14,10,18,10,14,16,16,12,9,11,1,17,16,14,17,19,16,11,14,9,14,12,18,14,11,13,14,19,15,14,10,16,12,13,6,10,17,13,12,14,21,19,9,21,14,15,15,12,11,10,11,8,7,15,22,10,13,19,9,8,18,10,9,13,16,20,16,17,10,10,22,15,12,15,14,9,16,10,11,15,14,22,16,15,10,10,12,14,19,18,6,9,15,22,17,15,19,18,13,22,9,17,7,9,16,13,8,15,0,14,17,13,20,21,8,14,17,15,13,9,9,14,20,11,10,11,10,10,13,9,19,14,13,8,12,13,8,19,20,17,21,18,9,1,10,18,21,15,6,17,12,16,12,11,17],"type":"box","name":"beverages","marker":{"color":"rgba(72,22,104,1)","line":{"color":"rgba(72,22,104,1)"}},"line":{"color":"rgba(72,22,104,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(72,40,120,0.5)","y":[21,22,11,21,12,10,13,20,8,13,5,13,8,17,9,22,12,7,21,22,18,17,14,14,16,14,6,15,15,10,21,16,17,8,13,16,15,17,18,16,12,15,13,15,19,13,12,13,12,12,12,8,13,10,16,15,19,13,9,20,10,9,21,10,10,14,12,11,13,3,18,16,18,12,14,9,16,14,18,22,7,8,16,16,7,15,19,15,9,12,15,10,10,9,13,21,17,11,9,18,20,21,18,12,3,13,19,3,10,10,8,16,22,10,19,11,14,15,12,16,7,19,8,11,13,20,18,16,19,10,15,12,14,11,8,19,11,18,19,13,5,22,13,14,9,10,16,8,10,12,11,10,6,7,8,15,17,21,7,7,16,18,20,14,16,13,21,11,13,17,9,12,10,8,16,12,15,11,14,16,16,15,19,13,9,11,6,17,14,17,15,17,20,17,16,7,10,9],"type":"box","name":"breakfast","marker":{"color":"rgba(72,40,120,1)","line":{"color":"rgba(72,40,120,1)"}},"line":{"color":"rgba(72,40,120,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(68,58,131,0.5)","y":[22,9,9,11,17,11,17,19,10,11,17,14,17,11,11,16,14,10,10,9,9,15,7,17,18,16,10,8,12,15,17,9,11,14,9,8,13,7,9,19,12,8,13,15,19,16,12,13,9,19,12,21,10,9,16,17,13,9,16,15,11,16,14,16,21,15,12,8,16,8,12,21,18,11,8,12,15,8,15,9,11,15,13,21,14,12,11,19,14,21,16,13,12,18,16,15,10,12,17,15,13,15,14,14,15,10,15,19,20,12,15,10,16,9,21,15,12,14,18,9,9,15,11,10,20,9,15,9,14,8,12,14,11,20,17,16,13,11,22,0,9,14,12,13,9,9,15,15,17,7,11,17,21,18,13,10,14,21,12,14,19,14,13,18,11,8,13,10,12,10,11,17,15,14,20,13,9,19,12,16,9,9,8,10,18,11,20,15,15,13,7,11,13,7,12,11,15,12,13,12,15,14,15,11,16,13,10,12,22,20,11,12,8,9,14,11,12,16,21,15,9,17,20,16,9,11,13,10,7,14,13,15,11,18,9,17,11,18,16,13,15,15,10,11,19,13,12,9,17,16,10,14,12,13,11,15,21,17,7,17,15,14,12,16,18,14,12,13,5,15,10,14,9,14,21,17,13,9,13,0,16,10,16,14,19,15,14,7,13,16,11,14,21,9,13,12,12,10,12,10,19,16,15,14,17,14,11,14,16,21,7,17,16,10,10,14,18,15,13,20,15,19,6,18,12,11,17,19,17,14,11,13,16,9,14,12,8,8,19],"type":"box","name":"canned goods","marker":{"color":"rgba(68,58,131,1)","line":{"color":"rgba(68,58,131,1)"}},"line":{"color":"rgba(68,58,131,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(62,74,137,0.5)","y":[20,12,18,11,9,20,8,9,18,12,12,11,10,14,14,12,18,14,18,13,11,18,15,12,12,16,14,14,9,15,13,19,20,12,20,14,14,16,16,17,13,10,17,15,14,21,15,17,9,12,10,19,11,15,13,13,18,15,10,4,10,7,11,13,17,0,13,13,14,17,13,11,16,13,16,12,16,10,10,18,18,15,10,11,12,13,15,10,23,17,17,9,14,17,12,15,14,14,14,13,12,10,16,13,16,9,5,13,12,16,11,17,8,7,18,7,1,8,6,20,19,8,16,13,16,15,20,9,10,14,23,13,17,20,12,11,6,9,16,14,22,21,16,18,23,17,15,21,23,12,20,23,14,7,15,13,22,13,17,13,10,11,14,13,20,17,11,12,10,10,16,19,10,8,20,19,12,17,18,18,12,14,18,16,23,14,16,18,8,17,12,8,14,8,9,13,21,20,11,11,10,12,18,1,11,16,13,18,20,9,11,10,8,13,11,18,8,12,18,10,9,12,17,17,19,13,13,11,11,17,12,16,10,17,10,12,9,13,9,8,20,7,11,13,9,11,11,14,14,8,18,11,10,7,17,9,13,10,10,8,22,12,14,13,15,18,13,10],"type":"box","name":"dry goods pasta","marker":{"color":"rgba(62,74,137,1)","line":{"color":"rgba(62,74,137,1)"}},"line":{"color":"rgba(62,74,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(55,90,140,0.5)","y":[20,12,21,9,16,11,13,12,11,13,12,10,12,15,20,11,12,13,14,15,20,17,19,11,11,18,11,21,18,16,8,14,12,12,9,18,17,11,17,12,12,12,9,12,23,15,9,17,17,12,17,16,13,12,16,16,7,15,17,10,20,12,15,12,8,17,7,15,16,11,16,9,10,18,2,16,14,12,13,13,8,12,11,11,19,12,22,10,10,13,15,11,15,13,11,17,15,11,9,8,12,10,19,15,17,15,9,8,14,17,12,11,10,7,10,15,9,11,16,11,14,17,17,17,12,18,18,17,10,1,15,12,21,14,18,16,9,16,23,16,15,17,17,12,17,12,7,14,14,17,13,9,15,15,9,19,15,23,10,10,10,22,13,15,11,10,10,8,9,16,17,18,16,17,14,11,10,9,13,11,12,6,7,8,16,13,13,11,19,19,2,14,16,20,16,16,13,11,19,14,0,11,6,13,9,14,10,7,8,15,13,18,14,11,7,17,6,23,14,16,18,14,12,9,11,14,8,12,11,12],"type":"box","name":"meat seafood","marker":{"color":"rgba(55,90,140,1)","line":{"color":"rgba(55,90,140,1)"}},"line":{"color":"rgba(55,90,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(49,104,142,0.5)","y":[13,10,14,13,18,9,12,13,19,12,18,15,18,7,20,20,13,19,8,15,12,18,12,18,8,11,21,14,18,9,14,11,18,13,11,14,14,6,16,17,13,11,11,15,16,22,13,9,15,10,13,15,7,18,14,18,12,12,17,12,9,14,0,11,23,10,9,14,22,10,22,17,17,10,8,10,12,12,15,21,10,23,8,19,13,16,17,12,19,10,9,7,17,16,12,13,12,8,10,10,15,11,22,16,14,22,23,16,17,7,16,16,9,13,15,18,10,12,16,11,11,12,16,13,1,13,13,19,7,17,15,18,12,15,21,13,17,20,7,15,11,19,12,23,19,13,12,11,17,14,8,19,10,12,22,17,16,5,15,17,14,10,16,18,16,8,22,20,15,10,14,15,19,14,13,10,15,9,10,13,17,21,15,12,14,12,13,16,0,16,18,12,17,13,17,14,12,20,15,11,15,11,14,14,18,9,11,19,9,11,13,11,11,11,15,21,13,11,15,13,11,20,7,11,15,10,18,20,11,19,21,10,9,21,10,11,18,12,20,7,11,16,20,19,8,20,15,10,8,18,11,9,10,13,17,13,7,8,13,11,16,22,8,12,8,14,12,11,8,9,10,8,10,11,11,13,12,0,12,12,11,15,15,13,17,17,4,14,11,9,9,12,14,5,13,14,22,15,8,15,9,15,9,11,14,12,15,12,16,1,7,17,14,8,12,8,2,9,7,8,10,10,19,15,14,9,12,17,14,9,16,11,16,10,15,14,17,10,13,14,19,13,19,0,20,21,15,15,10,19,11,9,7,22,18,18,13,10,13,7,20,20,7,19,11,13,15,15,13,16,12,15,12,15,8,14,0,16,14,10,8,17,16,22,14,11,19,10,12,16,17,9,17,20,15,15,13,12,21,9,17,12,6,10,12,20,12,17,10,15,14,22,17,16,9,16,8,9,14,17,20,16,14,10,7,14,11,12,12,15,12,18,18,17,19,22,15,9,12,14,16,14,12,10,19,11,9,11,17,17,10,10,8,10,16,13,20,11,13,7,17,10,17,19,10,1,11,10,9,9,14,14,13,10,13,21,9,21,13,21,9,11,20,13,10,9,12,7,15,16,11,9,16,11,20,17,20,21,19,18,10,9,7,11,9,19,10,16,10,15,9,16,14,15,19,5,18,7,16,20,21,17,14,8,19,17,7,15,10,10,13,10,11],"type":"box","name":"pantry","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"line":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(43,117,142,0.5)","y":[10,13,16,21,17,16,12,14,15,7,9,10,11,11,10,22,9,9,15,19,8,18,6,7,17,10,10,20,14,22,14,8,14,23,15,10,12,16,11,13,12,13,12,12,17,11,9,17,13,14,14,12,11,19,11,13,6,20,17,11,10,9,13,19,9,16,12,8,11,6,10,11,12,21,8,15,7,16,16,12,13,11,19,19,9,17,14,15,15,15,9,21,18,21,21,13,12,21,12,16,14,15,1,14,13,15,9,12,18,12,10,16,18,10,19,19,11,7,12,9,15,8,17,1,14,12,15,15,16,10,12,15,12,11,8,9,9,14,18,0,7,14,15,13,12,9,21,8,11,6,13],"type":"box","name":"personal care","marker":{"color":"rgba(43,117,142,1)","line":{"color":"rgba(43,117,142,1)"}},"line":{"color":"rgba(43,117,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(38,130,142,0.5)","y":[10,17,12,15,11,17,16,2,16,12,13,0,15,0,7,9,13,19,14,14,21,14,9,16,20,12,19,18,10,16,9,10,10,12,14,10,10,17,20,16,6],"type":"box","name":"pets","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"line":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(33,144,141,0.5)","y":[12,11,0,20,10,7,23,12,15,13,8,16,12,15,18,21,15,11,17,17,19,15,16,13,14,7,12,17,7,11,14,14,10,9,19,19,14,10,1,17,18,12,7,15,20,8,13,15,16,8,9,16,17,10,2,17,8,14,12,18,21,21,17,13,11,11,18,11,7,14,16,13,10,11,12,18,9,9,9,16,17,15,14,12,15,12,7,12,17,11,21,12,20,13,9,16,11,11,14,14,19,11,11,9,14,17,19,13,16,18,14,15,6,11,18,10,19,20,7,17,13,18,13,12,20,13,19,15,18,23,15,12,13,19,11,8,16,13,16,12,12,11,7,10,15,17,9,7,11,12,13,12,8,10,11,12,15,10,13,9,9,17,13,8,15,6,14,15,19,9,3,14,17,7,13,15,0,18,11,8,12,12,15,15,16,18,10,9,11,15,13,18,16,16,13,16,8,20,20,1,16,7,19,9,20,10,12,11,12,14,8,13,9,10,16,9,13,17,10,18,17,17,9,9,12,18,13,11,8,15,12,9,12,11,9,16,13,15,21,16,8,17,10,8,14,10,17,9,12,8,16,10,16,22,13,14,18,12,10,12,21,12,8,7,17,19,18,21,14,10,16,14,13,7,16,12,13,17,19,9,8,17,15,13,12,17,17,17,17,9,10,13,8,11,17,15,11,13,15,7,9,22,8,9,19,11,11,11,9,10,11,9,12,9,20,8,13,22,10,13,18,12,10,9,16,14,14,15,14,12,13,7,21,7,9,9,12,11,10,20,21,17,16,12,19,18,8,16,15,8,8,14,22,4,21,11,15,13,14,9,10,13,16,11,13,11,9,15,11,9,17,8,9,17,12,13,20,11,8,13,13,7,10,23,13,8,15,16,8,9,22,14,7,18,13,12,13,9,14,19,7,7,13,17,11,11,12,11,15,6,16,8,10,11,12,14,15,14,17,6,15,19,13,14,19,16,11,16,19,10,15,10,9,8,16,14,10,18,17,14,23,13,16,11,13,14,19,14,15,19,23,21,9,12,23,14,18,16,9,20,20,12,12,12,16,7,23,20,12,16,12,20,18,11,20,11,17,0,20,13,12,22,13,19,22,16,11,14,13,16,17,20,13,10,15,6,16,11,10,10,13,5,17,10,6,16,13,15,15,0,12,11,12,15,16,12,17,10,10,17,11,7,14,12,15,10,13,17,9,17,13,22,15,18,11,12,13,13,10,13,16,19,14,12,19,16,17,11,0,14,10,14,1,18,11,18,17,20,9,16,12,19,19,14,10,7,20,15,14,16,21,9,11,22,12,12,0,10,22,9,11,12,10,20,19,11,12,15,16,7,11,16,13,18,5,14,13,10,13,22,7,14,15,15,16,17,7,12,12,15,13,16,11,13,13,9,11,16,11,9,16,21,10,7,12,4,11,15,12,7,8,15,15,11,13,10,0,15,16,13,14,11,11,10,15,9,9,18,18,17,13,9,4,13,20,9,11,17,13,17,13,13,18,9,14,13,20,20,16,9,19,11,18,11,17,16,11,8,18,9,9,17,16,16,18,14,18,18,15,12,17,20,15,12,14,11,16,9,18,6,14,15,10,12,14,10,20,19,18,18,11,12,17,18,10,17,13,19,7,16,15,18,13,16,14,14,10,15,7,20,13,14,9,9,12,9,20,18,16,11,18,20,13,12,8,15,13,19,10,22,12,12,21,12,17,14,14,9,17,14,10,12,19,9,0,23,12,9,17,11,19,18,14,8,14,15,15,13,17,9,11,14,11,16,18,13,16,8,8,16,2,0,0,14,14,12,11,12,11,18,11,8,15,16,7,13,13,11,13,7,20,10,10,10,11,15,12,20,14,11,12,16,17,16,18,12,20,8,12,10,8,11,10,13,15,16,14,8,17,17,21,12,16,10,11,11,14,22,18,10,12,15,21,17,11,12,13,14,19,11,13,14,13,20,16,22,6,12,10,7,14,19,15,11,21,10,10,10,21,14,18,14,9,10,13,16,11,12,15,11,14,17,15,22,13,18,12,10,19,11,15,16,13,6,2,15,15,14,9,17,18,12,19,15,15,8,9,11,17,15,15,11,10,10,15,20,9,13,12,19,8,17,9,16,17,10,15,15,11,15,7,19,18,12,10,23,22,7,12,11,17,22,15,22,14,17,12,11,18,18,1,23,18,11,15,8,10,17,11,14,13,16,3,17,23,11,12,13,9,10,16,14,15,11,10,11,13,7,8,13,9,7,12,9,9,19,13,11,6,11,17,8,17,14,13,9,8,8,14,13,19,11,14,16,8,11,16,16,11,12,10,11,21,10,18,20,11,10,18,12,16,10,12,13,14,18,16,15,17,8,13,18,14,8,18,18,17,20,11,13,13,18,13,7,14,9,14,15,15,18,21,16,12,14,19,18,12,16,8,12,9,11,10,11,11,16,17,13,17,12,14,11,13,9,0,19,11,14,10,9,9,10,9,7,19,16,15,17,16,15,13,18,17,11,17,21,9,12,11,9,20,10,19,11,14,20,14,11,13,12,20,12,11,23,14,7,16,16,15,12,1,11,1,7,16,11,14,21,8,19,14,12,16,16,16,21,11,16,15,12,13,14,9,23,17,11,9,12,15,18,15,10,12,15,12,16,11,12,14,22,9,11,7,0,14,8,8,8,9,15,16,18,7,20,17,11,12,10,11,12,22,19,10,17,17,14,13,7,17,9,16,9,11,18,13,13,14,16,17,5,15,12,17,11,13,10,15,15,8,12,12,7,11,17,21,22,11,12,20,13,8,19,17,11,14,10,15,8,18,21,8,8,19,16,14,13,11,19,16,4,14,9,9,11,9,22,13,8,9,18,9,16,11,2,13,8,15,9,0,14,11,8,11,18,13,7,17,12,8,19,11,10,12,18,9,21,15,16,15,16,14,15,18,9,9,18,22,20,15,15,11,13,12,11,11,17,20,10,8,16,15,8,19,16,8,11,18,10,2,14,11,7,11,12,12,0,8,15,16,19,14,12,22,18,13,9,12,23,9,9,22,10,14,15,10,20,10,17,20,8,17,13,9,20,13,8,12,16,12,21,17,12,22,11,2,15,15,6,14,10,16,13,20,15,17,16,17,18,11,17,10,11,19,12,12,17,9,14,1,17,12,10,18,12,13,15,10,8,10,13,20,16,16,22,15,15,12,17,13,13,13,15,19,17,14,18,19,22,12,18,9,8,15,12,16,9,9,22,15,17,19,17,14,7,19,16,15,9,18,21,13,15,18,16,11,9,10,12,23,18,13,10,12,12,15,17,14,17,17,22,11,19,9,11,18,10,12,15,14,10,12,9,7,8,12,21,13,12,16,16,10,12,8,15,10,16,9,9,14,14,8,17,20,10,12,11,10,17,19,20,19,7,14,15,14,4,16,10,7,6,10,14,16,12,19,12,8,19,5,15,15,20,9,10,9,20,16,18,17,10,10,15,17,18,12,14,22,9,10,9,13,11,15,10,11,10,15,13,18,8,9,16,12,16,10,3,16,12,17,14,16,16,13,11,11,12,15,15,12,22,14,15,11,18,12,10,16,6,9,16,9,9,6,10,9,12,10,17,12,9,8,13,12,11,11,16,16,2,15,10,15,8,12,17,18,22,6,13,14,18,17,13,15,16,15,9,7,11,11,14,13,10,9,17,10,20,13,17,12,12,7,17,21,14,14,14,16,16,18,16,16,18,14,10,7,19,15,9,12,13,16,10,13,10,7,22,16,17,11,13,11,10,10,10,7,10,12,17,14,10,13,13,8,9,11,12,20,16,16,18,14,15,9,13,10,12,15,13,11,15,19,12,16,13,7,14,11,11,14,14,7,11,18,14,20,15,10,12,9,19,9,16,14,14,13,13,10,7,9,16,15,15,9,12,12,16,11,8,11,13,16,10,21,16,16,8,11,11,17,18,13,13,19,16,10,12,17,9,13,14,12,7,12,18,13,7,8,18,13,13,9,23,16,11,17,7,9,20,10,16,21,12,17,15,8,16,13,8,23,6,10,15,15,19,17,13,22,21,15,10,21,9,8,15,13,11,9,15,13,14,9,10,15,12,8,8,20,14,18,20,11,15,13,21,14,15,12,18,14,12,15,7,13,20,16,11,16,23,13,13,15,21,17,14,10,14,18,13,21,17,12,9,11,14,15,18,12,12,11,15,5,15,1,21,10,9,15,12,11,10,17,18,9,21,12,14,11,12,14,11,20,18,9,20,11,7,9,17,12,16,10,17,13,12,9,17,7,12,14,19,10,22,18,17,9,17,6,15,16,11,17,9,14,12,19,14,11,17,16,13,16,11,10,19,11,18,13,11,7,19,12,16,16,15,11,19,11,16,8,15,10,9,18,15,10,19,19,18,12,12,19,16,17,11,10,7,10,12,13,14,15,17,19,13,13,15,16,12,12,20,18,5,15,8,9,18,13,15,17,15,18,14,17,18,15,16,17,15,18,18,22,12,12,11,15,11,17,9,22,9,10,16,7,7,13,14,16,7,16,16,10,7,15,7,10,13,13,11,14,15,10,11,17,15,13,16,21,13,11,9,0,14,15,22,9,11,11,10,12,9,9,18,13,17,7,14,21,7,9,12,16,14,13,11,20,15,17,15,11,19,17,1,18,8,8,2,15,15,12,17,11,16,16,11,5,13,15,12,23,11,13,16,20,13,13,8,15,8,12,8,20,10,18,22,10,12,17,18,0,9,23,10,18,10,11,13,13,11,7,17,17,10,19,15,14,16,7,13,9,14,17,12,14,9,12,15,18,14,21,9,17,9,18,17,19,12,19,20,20,14,17,8,12,17,13,16,10,8,14,14,21,22,11,15,17,16,14,8,13,14,21,14,15,11,13,1,12,10,13,15,20,20,20,17,8,14,14,17,16,22,12,22,17,18,13,9,12,16,19,19,7,18,14,14,7,7,16,13,14,8,18,14,21,21,11,20,14,16,16,13,17,11,18,16,18,8,8,13,7,9,11,16,15,17,10,11,9,9,15,14,19,11,23,19,14,18,13,16,16,17,14,21,18,0,19,8,16,11,13,14,14,18,12,17,12,12,16,19,13,16,9,14,17,11,15,20,11,21,9,12,16,12,9,10,7,11,14,14,14,16,13,20,11,23,9,15,16,15,12,17,17,23,12,22,18,7,16,13,13,9,11,16,13,14,12,14,8,12,18,20,17,17,11,13,10,13,11,9,13,15,16,17,17,17,16,16,16,16,10,11,11,12,12,11,16,9,15,17,11,14,17,19,20,0,19,9,11,19,10,16,12,15,21,21,11,16,9,18,22,12,8,18,18,17,16,22,3,9,14,9,15,14,14,17,18,18,19,16,22,15,18,18,16,15,8,16,16,21,8,15,22,11,20,8,21,14,14,11,12,16,22,19,8,6,21,9,17,13,14,15,9,12,12,10,7,15,12,17,11,16,11,8,10,15,14,11,15,11,15,16,13,17,13,12,0,9,14,13,17,12,10,13,9,18,12,22,16,11,16,11,0,12,14,10,15,18,13,14,13,23,14,8,16,8,18,9,16,15,10,18,15,8,7,13,10,9,16,16,11,17,21,17,14,17,9,12,19,12,11,10,17,12,18,15,9,15,21,12,18,15,15,13,16,16,18,16,12,10,10,18,14,11,11,10,8,16,13,12,12,7,21,8,8,13,12,17,12,8,10,11,16,16,12,16,16,14,9,1,12,13,9,7,14,17,7,15,10,19,13,11,9,18,17,21,19,9,6,0,10,17,13,20,16,8,15,7,11,1,17,5,11,9,10,16,10,17,11,8,17,12,9,9,9,15,15,13,21,18,16,22,11,15,12,12,14,21,16,17,16,14,12,8,19,12,8,17,9,20,21,13,0,16,11,9,10,7,16,7,13,17,16,11,11,16,15,16,17,1,15,9,12,18,11,15,22,18,8,15,12,12,13,20,15,9,8,17,15,14,17,17,20,14,10,19,15,2,9,16,7,11,19,17,11,11,13,12,11,19,13,8,14,18,22,10,19,13,10,15,19,12,22,9,14,14,15,8,10,0,23,9,13,11,16,14,13,12,13,19,15,12,10,20,13,22,13,17,19,14,12,19,10,14,6,21,15,14,15,14,8,22,14,23,15,13,22,14,14,11,10,8,16,7,15,20,9,14,13,13,11,7,15,14,10,15,13,10,15,19,13,9,14,14,20,19,11,9,12,17,10,17,5,14,17,15,14,19,14,12,11,11,14,14,14,15,7,13,12,16,19,7,9,10,11,10,10,6,13,11,9,9,22,17,16,15,21,18,11,13,15,11,12,9,10,10,12,15,21,16,12,23,23,10,19,14,23,21,20,23,13,10,15,9,19,11,13,13,11,19,17,14,10,20,21,12,11,13,17,8,17,14,18,11,17,21,12,8,11,13,11,18,14,10,16,16,7,9,21,18,8,11,14,23,10,17,11,9,15,14,17,12,11,18,11,21,18,12,17,21,18,14,9,5,17,0,12,13,16,14,17,16,21,15,17,12,16,23,0,11,13,2,14,12,15,11,12,12,9,19,8,19,17,15,13,11,16,8,11,17,14,11,14,19,11,17,13,10,18,17,18,16,16,16,13,18,15,4,17,10,9,12,15,16,20,15,12,22,9,10,18,23,22,14,13,18,16,8,9,11,9,9,14,22,17,18,15,12,9,17,10,21,22,18,16,12,14,15,16,12,13,12,19,13,9,12,11,17,12,12,13,11,17,13,15,23,3,9,11,12,23,12,14,20,18,9,11],"type":"box","name":"produce","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"line":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(31,158,137,0.5)","y":[11,13,14,12,13,17,7,12,15,11,16,14,14,20,8,14,13,14,20,17,14,10,11,18,9,20,14,15,22,11,11,8,13,17,13,9,12,12,15,9,19,20],"type":"box","name":"alcohol","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"line":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(37,171,130,0.5)","y":[19,14,17,17,17,12,8,9,12,20,14,14,20,7,10,15,21,10,10,16,10,6,9,14,14,13,16,19,9,8,19,22,4,21,11,18,12,20,16,12,9,17,8,17,10,15,11,8,0,8,15,14,13,10,17,22,11,21,13,16,15,12,16,21,13,19,17,7,14,15,0,9,22,19,11,13,15,7,8,21,10,18,10,16,11,15,15,8,14,13,17,13,19,16,16,20,7,8,6,7,13,18,9,16,15,17,18,9,10,8,12,14,22],"type":"box","name":"babies","marker":{"color":"rgba(37,171,130,1)","line":{"color":"rgba(37,171,130,1)"}},"line":{"color":"rgba(37,171,130,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(53,183,121,0.5)","y":[14,9,11,12,10,14,18,10,8,13,7,16,9,13,20,13,12,9,10,13,18,14,0,19,9,14,18,13,8,19,13,19,7,15,20,13,13,17,12,15,10,14,14,16,21,16,16,18,15,18,11,17,8,12,12,17,8,15,17,14,15,12,18,17,18,20,12,16,18,7,12,23,9,13,11,12,15,16,3,13,11,12,14,17,10,18,10,9,21,15,19,14,8,17,13,6,19,15,11,18,18,12,16,20,18,15,8,16,9,21,11,14,19,14,8,11,14,14,10,11,12,11,12,9,16,18,13,17,14,20,16,9,9,10,15,16,7,13,12,9,19,18,11,17,13,12,14,14,15,12,15,18,19,15,10,8,16,9,13,11,16,14,8,17,16,13,10,10,12,20,16,9,16,9,20,11,12,14,10,9,18,15,14,9,18,15,8,12,15,21,11,7,17,15,13,10,15,21,16,11,15,18,15,12,8,14,10,15,13,20,10,20,14,9,17,14,16,18,9,11,15,21,16,11,18,12,18,10,13,12,8,11,16,18,12,9,1,18,17,17,12,23,13,17,1,18,14,8,14,20,12,10,11,11,13,17,11,2,17,11,10,17,8,18,17,0,2,15,13,10,15,15,14,18,12,10,17,7,16,18,16,0,14,1,11,14,21,21,17,18,10,10,15,15,12,19,16,19,13,7,20,7,8,9,10,1,9,9,11,12,17,7,16,10,16,0,8,19,15,16,22,18,8,12,12,11,15,17,9,14,7,14,14,12,11,15,16,11,13,8,18,16,18,17,16,10,15,13,18,12,9,11,9,19,16,9,21,15,9,9,10,10,22,12],"type":"box","name":"bakery","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"line":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(78,195,107,0.5)","y":[20,9,17,13,14,14,21,13,8,13,17,19,11,13,11,11,10,15,12,13,18,15,10,21,10,17,10,13,21,14,14,16,17,8,19,22,14,12,23,12,12,12,19,12,16,12,9,21,10,11,16,10,9,11,21,11,15,9,15,15,16,19,14,23,9,12,21,19,23,17,9,22,23,21,9,10,15,22,17,7,15,11,7,15,16,12,7,17,8,9,15,17,14,20,13,21,13,8,16,17,13,11,12,16,18,9,12,15,18,12,14,14,12,9,19,7,15,14,9,11,20,8,15,3,10,19,18,11,15,12,21,22,15,16,12,13,15,14,14,15,12,23,13,19,14,22,14,13,12,10,17,17,9,11,10,12,16,7,11,18,7,10,15,12,21,18,17,7,14,10,16,9,13,16,19,16,13,12,17,9,14,14,16,20,10,11,7,14,11,14,13,19,12,11,19,18,17,13,18,16,9,10,14,13,11,20,16,19,17,7,15,16,14,9,13,14,17,12,10,22,13,8,18,10,13,10,8,20,22,8,15,17,13,18,11,13,11,16,13,10,8,12,10,23,20,12,13,17,14,11,19,20,14,19,17,10,15,6,11,15,12,7,14,19,21,13,12,14,19,18,21,21,9,18,16,13,12,21,15,19,9,7,12,7,15,16,10,13,9,13,12,15,9,18,14,10,19,11,17,22,21,16,10,12,14,8,17,13,20,6,5,10,7,10,9,19,18,20,2,13,12,0,12,13,23,4,16,11,13,16,16,10,16,17,16,10,16,17,8,9,13,13,10,15,8,13,20,18,13,19,17,17,9,9,17,16,16,18,16,17,17,14,17,13,20,20,15,19,8,10,10,15,7,11,16,19,17,13,10,7,16,16,10,11,16,2,13,10,14,17,19,18,20,10,7,20,7,19,21,7,16,18,9,18,12,10,9,11,17,17,15,20,3,9,16,12,10,13,11,17,17,14,21,19,18,11,16,16,13,14,12,12,16,18,11,11,15,11,17,9,11,15,13,9,15,9,10,17,21,9,7,11,16,12,10,17,21,15,23,13,10,8,11,10,14,0,17,15,21,15,16,15,19,10,5,5,17,19,18,12,10,23,13,15,13,14,14,18,18,8,7,21,19,14,14,13,9,16,17,12,11,11,9,19,21,12,12,10,11,15,13,16,7,18,6,22,10,13,14,19,20,18,19,10,10,18,19,14,15,14,22,12,16,13,14,18,13,12,7,13,13,17,8,12,15,9,21,12,14,12,15,14,10,13,17,18,9,14,9,16,19,9,10,10,14,9,16,14,15,7,18,9,17,23,13,10,16,14,21,15,13,10,13,20,10,11,16,18,16,13,15,8,11,20,15,11,12,23,9,12,14,8,13,10,16,21,16,17,21,13,17,17,14,16,16,10,16,20,19,10,17,8,15,19,11,9,20,12,18,11,17,14,15,17,20,7,17,15,21,14,17,12,18,10,0,15,6,16,11,10,14,14,11,10,8,17,18,17,10,11,11,7,0,9,12,20,18,11,10,20,10,16,21,16,11,8,10,9,12,10,16,8,12,9,18,12,17,8,9,15,15,10,10,14,13,13,18,10,16,9,12,23,16,13,16,13,11,9,11,13,19,11,10,15,17,16,14,7,8,22,12,18,15,12,11,17,14,14,11,10,11,17,16,9,16,9,10,5,20,10,19,15,19,18,13,11,8,12,16,12,20,18,17,8,13,12,9,15,6,10,18,19,17,22,17,15,7,17,19,13,11,13,12,14,15,10,14,19,18,10,17,14,7,10,14,16,15,13,9,18,20,18,15,18,12,0,2,5,19,10,21,15,10,12,13,13,12,14,16,18,19,10,11,11,18,9,16,13,12,14,7,11,15,7,15,18,19,17,13,13,13,7,15,19,7,6,14,14,8,19,10,19,11,13,13,9,20,7,13,10,14,15,19,9,9,9,13,14,16,16,14,13,16,8,18,12,11,17,8,14,17,15,9,14,23,10,9,14,16,11,12,10,10,9,14,16,15,11,12,11,13,18,10,14,13,18,12,18,11,12,19,21,13,6,9,13,10,9,23,18,21,21,19,15,8,12,9,15,11,7,17,19,9,16,21,9,9,10,19,8,13,11,19,18,12,3,16,14,17,16,9,11,18,8,11,12,16,17,10,15,18,21,12,9,17,19,21,11,0,10,10,9,12,12,12,15,18,14,9,17,15,14,18,15,16,10,9,10,17,14,10,12,8,12,13,18,19,23,9,14,23,20,8,12,15,12,15,7,15,16,10,13,6,15,10,15,11,6,18,9,11,14,8,13,14,10,14,11,15,8,13,9,16,15,9,12,17,12,17,8,18,15,15,11,19,12,12,19,16,18,10,8,10,14,18,8,13,17,17,19,9,13,12,15,17,13,21,11,8,11,13,14,15,12,10,13,11,13,10,9,12,9,19,4,15,18,9,14,20,16,19,16,12,15,21,17,13,14,9,20,12,10,9,14,19,9,11,19,11,19,5,11,14,17,13,13,17,11,11,9,15,14,20,16,8,10,13,13,7,15,15,11,22,12,11,3,16,23,13,13,18,14,9,14,12,10,10,20,11,11,9,20,14,13,15,19,15,19,15,7,14,12,13,16,18,13,15,11,19,9,9,17,13,11,19,16,7,13,16,22,15,9,12,16,17,10,9,13,18,14,10,11,9,13,15,18,14,14,19,12,18,19,14,17,9,17,14,12,8,15,18,8,9,14,15,10,13,14,18,13,22,8,21,16,7,7,15,16,9,13,10,8,11,8,22,8,11,14,21,9,15,17,13,16,14,11,14,7,9,15,12,1,9,14,16,1,22,14,10,10,10,11,8,18,7,11,11,10,15,16,13,11,13,14,14,14,11,15,17,19,13,16,18,13,17,11,9,10,20,20,16,10,14,8,12,20,13,13,17,18,18,19,20,14,17,14,11,18,22,13,16,10,16,11,9,10,16,12,19,13,15,13,17,20,12,13,14,11,16,7,16,18,16,11,8,12,14,14,17,17,12,14,14,8,10,16,20,16,13,11,19,12,6,9,21,14,13,12,12,16,13,15,11,16,9,18,13,16,17,17,6,14,18,14,20,10,13,19,14,12,10,8,14,11,14,15,16,12,14,13,13,18,13,17,10,12,12,0,9,19,15,20,15,18,14,13,10,10,16,22,21,21,7,9,18,16,21,18,9,15,10,10,20,10,13,22,15,15,8,21,12,21,11,12,17,12,18,17,11,18,20,8,22,17,12,14,15,18,14,18,9,23,13,21,16,7,15,11,10,15,8,8,9,7,14,5,15,15,14,7,8,15,1,11,12,12,10,13,10,15,8,15,11,9,16,16,22,6,11,12,13,13,14,15,17,19,15,16,8,16,14,18,17,21,10,10,18,1,12,13,8,15,8,13,10,11,17,16,15,11,21,12,18,18,21,7,17,11,14,22,21,15,15,20,15,16,20,17,9,12,13,13,17,7,19,8,11,20,15,18,15,17,15,16,12,9,20,10,11,8,22,15,23,22,10,14,11,13,5,9,13,12,3,13,11,17,14,14,20,8,15,16,18],"type":"box","name":"dairy eggs","marker":{"color":"rgba(78,195,107,1)","line":{"color":"rgba(78,195,107,1)"}},"line":{"color":"rgba(78,195,107,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(109,205,89,0.5)","y":[15,12,15,14,12,9,19,12,16,14,20,17,23,17,10,15,13,15,12,11,13,12,18,3,14,14,15,16,13,7,12,7,14,18,20,15,16,10,9,15,11,9,19,18,10,18,9,12,6,11,13,8,10,10,18,15,10,16,1,22,11,20,10,16,9,10,12,19,10,14,16,8,13,16,17,15,11,9,13,16,18,9,6,11,16,16,17,17,14,19,12,18,20,14,13,16,13,7,13,20,9,16,9,14,10,15,17,15,10,11,8,14,12,15,23,18,10,11,10,16,14,16,10,10,21,12,18,14,21,0,10,18,11,18,12,20,19,8,17,18,15,11,15,12,13,12,20,17,15,10,12,16,11,17,10,18,14,14,22,16,21,7,10,13,20,8,9,14,9,11,11,18,19,5,9,12,16,15,12,13,14,12,14,12,14,11,17,14,16,12,11,18,10,9,6,11,17,23,10,13,19,13,14,16,14,7,13,10,10,13,7,8,10,14,9,9,14,19,16,7,12,13,15,13,20,12,12,8,15,14,12,8,14,14,16,17,15,16,12,16,10,14,15,14,12,11,17,12,17,9,18,14,22,16,11,7,10,11,18,9,7,12,9,18,14,12,14,16,14,14,10,17,14,16,17,11,13,15,10,11,13,8,17,17,14,0,7,11,16,18,15,13,18,16,11,14,14,16,18,11,21,11,18,18,7,9,15,18,16,18,12,23,17,8,21,14,9,17,14,18,10,1,13,12,10,19,18,23,12,13,16,15,16,18,13,6,17,7,15,17,17,11,17,17,9,14,17,16,19,9,13,18],"type":"box","name":"deli","marker":{"color":"rgba(109,205,89,1)","line":{"color":"rgba(109,205,89,1)"}},"line":{"color":"rgba(109,205,89,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(143,214,68,0.5)","y":[16,12,17,4,15,19,9,14,19,22,13,13,13,19,19,10,18,19,19,12,19,15,7,18,17,11,15,14,12,17,6,9,10,14,22,12,21,20,15,13,15,18,10,14,10,13,16,14,13,20,22,14,20,17,11,8,15,13,10,8,14,15,15,15,16,12,18,14,14,6,15,13,9,12,10,10,14,12,9,17,9,9,13,16,18,18,14,15,19,15,12,13,20,11,12,16,17,10,11,16,13,15,14,19,16,12,3,20,20,11,16,13,12,17,14,14,10,17,19,16,14,15,15,13,9,18,11,20,12,19,15,18,7,15,13,11,17,13,18,21,16,16,11,10,14,9,23,9,7,10,20,5,13,19,23,14,13,17,10,17,8,16,7,11,13,13,16,14,12,14,18,12,11,16,9,14,13,13,7,15,15,13,16,14,16,11,12,13,11,11,15,19,8,19,7,18,19,5,18,15,11,22,14,15,10,14,17,21,16,12,15,14,14,19,22,17,11,13,19,13,16,16,12,11,18,12,12,19,15,10,17,18,14,11,12,8,7,12,21,12,14,12,15,10,17,13,19,17,9,14,11,14,9,9,19,13,12,19,19,18,13,14,13,13,12,15,12,10,11,16,15,10,13,15,23,11,15,21,14,14,10,17,11,12,10,11,10,11,18,8,9,12,9,15,20,22,16,10,9,9,16,11,15,17,8,13,21,15,17,15,12,17,10,12,17,11,12,16,18,13,15,14,13,12,12,14,7,13,10,10,8,11,12,10,10,16,12,21,11,16,11,3,6,10,10,11,16,11,21,13,14,18,19,16,18,2,11,13,9,10,9,8,11,17,23,20,19,15,13,13,10,7,18,15,10,8,7,12,12,12,10,16,17,10,19,15,16,17,17,12,17,14,10,10,11,10,8,18,9,21,19,19,17,12,7,14,16,18,8,11,13,12,9,16,10,9,9,12,9,9,19,18,16,12,12,15,10,7,8,11,9,16,15,10,13,12,20,15,15,16,17,19,12,8,12,20,18,21,17,20,6,23,11,14,17,14,14,15,12,19,20,16,18,14,20,11,15,15,14,10,12,15,8,20,17,20,13,14,14,15,18,11,12,23,17,9,19,11,17,9,14,13,20,9,17,13,20,15,15,7,9,12,9,17,17,11,15,12,9,15,13,11,15,17,11,11,13,12,9,10,17,18,9,10,10,11,11,23,23,14,18,17,11,19,16,11,10,19,13,0,9,19,14,13,16,13,14,13,7,16,11,8,8,22,13,9,10,14,9,17,16,9,19,17,10,17,20,10,9,14,18,3,13,16,9,13,8,19,11,20,13,18,17,12,17,11,17,8,10,6,16,13,18,11,16,10,18,23,13,11,10,10,17,15,17,3,17,6,7,14,11,11,13,10,10,8,12,7,7,18,12,19,11,16,9,9,14,20,14,10,9,10,15,17,14,10,11,13,11,10,18,6,21,11,14,12,10,7,16,12,2,20,12,13,12,13,15,18,10,20,0,21,19,16,14,12,17,16,14,17,12,17,11,8,9,23,19,12,13,9,15,16,0,10,14,14,18,18,9,8,11,14,22,16,15,20,16,22,19,17,15,15,9,10,18,15,16,20,11,16],"type":"box","name":"frozen","marker":{"color":"rgba(143,214,68,1)","line":{"color":"rgba(143,214,68,1)"}},"line":{"color":"rgba(143,214,68,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(180,222,44,0.5)","y":[17,9,11,0,16,17,9,1,22,7,11,9,13,17,19,8,11,13,6,15,13,15,12,18,11,11,21,10,11,16,12,11,10,22,18,17,20,12,16,21,0,21,13,12,13,14,18,15,12,14,11,13,12,18,17,10,10,18,13,15,23,10,14,15,11,8,8,17,15,22,17,15,11,18,15,16,16,15,14,13,13,8,18,9,11,16,20,15,16,18,13,11,19,15,16,10,13,11,17,19,15,1,21,10,18,20,15,20,15,16,11,18,11,20,18,11,19,8,14,8,14,16,18,16,15,14,13,22,12,11,10,13,16,14,18,14,15,12,14,9,16,13,4,12,21,11,12,11,0,11,6,16,11,12,18,6,16,15,20,1,18,13,14,0,17,9,9,14,17,10,23,11,9,10,11,13,16,18,7,10,13,18,13,22,12,18,16,19,5,17,13,12,11,14,7,23,12,8,17,14,11,9,13,11,13,6,18,15,19,15,17,23,20,19,8,18,16,18,13,17,13,15,17,13,9,12,21,19,15,9,7,15,21,18,10,17,16,9,15,16,6,9,17,10,14,16,13,12,18,18,10,11,11,22,18,14],"type":"box","name":"household","marker":{"color":"rgba(180,222,44,1)","line":{"color":"rgba(180,222,44,1)"}},"line":{"color":"rgba(180,222,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(218,227,25,0.5)","y":[16,6,16,17,15,13,13,12,9,10,14,16,16,9,15,14,15,15,23,9,15,16,6,18,10,10,16,13,17,15,15,15,16,15,20,13,17,7,18,13,9,9,17,23,18,13,11,13,11,10,3,18,14,12,7,22,11,14,10,13,11,18,13,18,18,16,15,10,16,8,10,13,14,1,20,13,14,9,15,14,15,20,19,11,13],"type":"box","name":"international","marker":{"color":"rgba(218,227,25,1)","line":{"color":"rgba(218,227,25,1)"}},"line":{"color":"rgba(218,227,25,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(253,231,37,0.5)","y":[15,15,13,22,9,14,13,16,18,11,22,18,10,16,14,11,11,12,10,13,8,10,8,10,18,13,14,15,16,10,11,12,10,1,10,16,23,11,15,19,12,12,14,11,12,16,12,10,16,0,8,15,18,11,11,11,14,13,17,11,16,15,20,10,16,16,8,10,18,14,13,13,17,17,14,11,16,1,13,12,10,15,20,13,17,20,10,15,21,22,8,15,15,16,15,16,17,11,14,15,10,11,16,8,17,13,13,9,16,14,11,19,16,15,14,20,22,15,15,10,17,20,15,12,20,10,10,16,0,9,12,18,21,18,16,12,11,8,19,18,10,7,13,14,14,16,19,15,19,14,14,16,10,10,6,18,16,17,12,12,13,12,12,8,19,15,12,18,12,21,12,15,12,16,19,15,15,13,20,14,9,15,17,16,15,11,14,15,11,22,11,18,14,8,10,10,17,15,15,18,12,8,14,19,13,14,14,17,10,21,17,16,12,17,22,20,8,3,17,12,10,15,10,16,17,20,11,14,19,17,17,8,17,11,13,14,16,14,10,15,8,14,14,18,10,17,16,19,11,7,8,13,10,16,19,11,10,16,17,21,18,17,11,18,9,14,14,10,10,14,11,8,9,13,19,11,18,14,11,11,12,12,18,19,20,12,9,8,9,13,18,15,22,15,8,11,11,13,15,9,9,13,13,10,22,15,13,21,10,12,11,21,11,23,15,14,18,13,8,16,8,9,7,17,10,10,21,17,17,17,11,14,17,13,15,9,18,9,18,19,12,15,18,15,12,17,21,13,15,15,14,14,17,8,17,19,14,17,14,20,17,23,18,16,13,18,8,16,10,23,14,16,15,12,10,14,16,16,14,15,13,12,14,11,13,20,22,22,10,17,20,11,19,8,18,16,8,21,18,16,16,10,19,22,12,12,22,12,13,10,12,11,10,17,16,9,9,22,17,9,14,14,17,16,8,11,11,23,9,16,13,16,15,15,11,20,10,8,9,16,10,15,16,18,13,20,17,20,13,22,10,14,15,13,21,17,13,9,14,13,15,13,15,18,23,7,13,16,10,20,18,13,12,19,8,10,14,13,10,8,18,0,16,8,11,10,18,9,13,9,20,7,9,17,9,18,12,15,14,10,13,14,12,16,10,14,15,12,14,16,15,14,18,15,19,13,10,13,10,7,17,22,13,13,13,15,20,13,16,21,13,17,11,12,7,10,18,18,13,12,10,10,13,17,22,13,14,11,20,1,16,13,16,17,19,17,11,11,16,11,0,19,18,9,12,16,8,16,8,9,19,11,13,10,21,17,9,14,22,12,10,8,12,22,14,10,22,11,22,23,11,20,9,13,15,13,15,22,19,12,10,10,19,11,13,10,10,15,16,16,13,11,9,12,15,19,14,10,11,13,12,15,15,15,22,9,13,13,12,17,10,19,15,12,19,20,14,15,11,21,8,3,5,0,6,9,9,19,22,14,10,18,5,16,8,20,17,13,14,16,18,20,11,16,22,9,18,22,14,13,15,13,14,15,8,22,9,9,15,9,9,13,23,18,14,20,15,11,12,9,16,16,7,17,16,17,9,6,11,21,16,21,21,12,21,17,12,10,8,16,11,15,14,11,15,9,22,16,22,9,20,11,7,15,18,13,17,12,16,9,16,14,18,12,13,8,17,9,7,9,11,17,21,8,18,11,18,14,14,18,15,11,10,16,10,10,17,16,17,11,13,19,19,11,12,22,7,21,11,18,16,14,15,11,14,13,15,12,16,17,11,14,19,15,11,9,11,0,15,0,18,0,16,16,10,8,14,15,21,14,10,17,11,12,13,15,18,14,19,10,11,12,10,20,14,10,9,9,8,13,18,11,15,17,12,16,19,12,21,8,19,14,16,16,9,15,20,13,13,20,9,15,8,15,8,18,13,11,15,19,10,12,16,13,18,16,8,14,19,12,9,13],"type":"box","name":"snacks","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"line":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>Barchart</p>
+<pre class="r"><code>instacart |&gt; 
+  filter(department == &quot;snacks&quot;) |&gt; 
+  count(aisle) |&gt; 
+  mutate(aisle = fct_reorder(aisle, n)) |&gt; 
+  plot_ly(x = ~aisle, y = ~n, color = ~aisle, type = &quot;bar&quot;, colors = &quot;viridis&quot;) |&gt; 
+  layout(
+    title = &quot;Number of Snack Items Ordered, by Aisle&quot;,
+    xaxis = list(title = &quot;Aisle&quot;, tickangle = 60),
+    yaxis = list(title = &quot;Number of items ordered&quot;))</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-9d1a6ed5632149b2374b" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-9d1a6ed5632149b2374b">{"x":{"visdat":{"f2b74fe4d32":["function () ","plotlyVisDat"]},"cur_data":"f2b74fe4d32","attrs":{"f2b74fe4d32":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Number of Snack Items Ordered, by Aisle","xaxis":{"domain":[0,1],"automargin":true,"title":"Aisle","tickangle":60,"type":"category","categoryorder":"array","categoryarray":["ice cream toppings","mint gum","trail mix snack mix","fruit vegetable snacks","popcorn jerky","cookies cakes","candy chocolate","nuts seeds dried fruit","energy granola bars","crackers","chips pretzels"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of items ordered"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["ice cream toppings"],"y":[504],"type":"bar","name":"ice cream toppings","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["mint gum"],"y":[962],"type":"bar","name":"mint gum","marker":{"color":"rgba(72,37,117,1)","line":{"color":"rgba(72,37,117,1)"}},"textfont":{"color":"rgba(72,37,117,1)"},"error_y":{"color":"rgba(72,37,117,1)"},"error_x":{"color":"rgba(72,37,117,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["trail mix snack mix"],"y":[1463],"type":"bar","name":"trail mix snack mix","marker":{"color":"rgba(65,68,135,1)","line":{"color":"rgba(65,68,135,1)"}},"textfont":{"color":"rgba(65,68,135,1)"},"error_y":{"color":"rgba(65,68,135,1)"},"error_x":{"color":"rgba(65,68,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["fruit vegetable snacks"],"y":[6741],"type":"bar","name":"fruit vegetable snacks","marker":{"color":"rgba(53,96,141,1)","line":{"color":"rgba(53,96,141,1)"}},"textfont":{"color":"rgba(53,96,141,1)"},"error_y":{"color":"rgba(53,96,141,1)"},"error_x":{"color":"rgba(53,96,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["popcorn jerky"],"y":[6917],"type":"bar","name":"popcorn jerky","marker":{"color":"rgba(42,120,142,1)","line":{"color":"rgba(42,120,142,1)"}},"textfont":{"color":"rgba(42,120,142,1)"},"error_y":{"color":"rgba(42,120,142,1)"},"error_x":{"color":"rgba(42,120,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["cookies cakes"],"y":[9980],"type":"bar","name":"cookies cakes","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["candy chocolate"],"y":[11453],"type":"bar","name":"candy chocolate","marker":{"color":"rgba(34,168,132,1)","line":{"color":"rgba(34,168,132,1)"}},"textfont":{"color":"rgba(34,168,132,1)"},"error_y":{"color":"rgba(34,168,132,1)"},"error_x":{"color":"rgba(34,168,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["nuts seeds dried fruit"],"y":[12532],"type":"bar","name":"nuts seeds dried fruit","marker":{"color":"rgba(67,190,113,1)","line":{"color":"rgba(67,190,113,1)"}},"textfont":{"color":"rgba(67,190,113,1)"},"error_y":{"color":"rgba(67,190,113,1)"},"error_x":{"color":"rgba(67,190,113,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["energy granola bars"],"y":[17449],"type":"bar","name":"energy granola bars","marker":{"color":"rgba(122,209,81,1)","line":{"color":"rgba(122,209,81,1)"}},"textfont":{"color":"rgba(122,209,81,1)"},"error_y":{"color":"rgba(122,209,81,1)"},"error_x":{"color":"rgba(122,209,81,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["crackers"],"y":[19592],"type":"bar","name":"crackers","marker":{"color":"rgba(188,223,39,1)","line":{"color":"rgba(188,223,39,1)"}},"textfont":{"color":"rgba(188,223,39,1)"},"error_y":{"color":"rgba(188,223,39,1)"},"error_x":{"color":"rgba(188,223,39,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["chips pretzels"],"y":[31269],"type":"bar","name":"chips pretzels","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

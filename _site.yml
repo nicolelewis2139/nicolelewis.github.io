@@ -9,6 +9,8 @@ navbar:
          href: index.html
        - text: "CV"
          href: cv.html
+       - text: "Dashboard"
+         href: dashboard.html
   right:
     - icon: fa-envelope fa-lg
       href: mailto:nel2139@cumc.columbia.edu
