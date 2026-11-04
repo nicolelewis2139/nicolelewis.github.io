@@ -1,0 +1,86 @@
+---
+title: "Instacart Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+```
+
+```{r}
+data(instacart)
+instacart = 
+  instacart |> 
+  select(product_name, aisle, department, order_hour_of_day, reordered)
+```
+
+Column {data-width=550}
+-----------------------------------------------------------------------
+
+### Time of Day Items Are Ordered, by Department
+
+```{r}
+set.seed(1)
+instacart |> 
+  filter(!department %in% c("missing","other")) |> 
+  sample_n(10000) |> 
+  mutate(department = fct_reorder(department, order_hour_of_day)) |> 
+  plot_ly(
+    y = ~ order_hour_of_day, 
+    color = ~department, 
+    type = "box", 
+    colors = "viridis") |> 
+  layout(
+    xaxis = list(title = "Department", tickangle = 60),
+    yaxis = list(title = "Hour of day order was placed")
+  )
+```
+
+Column {data-width=450}
+-----------------------------------------------------------------------
+
+### Snack Popularity vs. Reorder Rate 
+
+```{r}
+instacart |> 
+  filter(department == "snacks") |> 
+  group_by(product_name, aisle) |> 
+  summarize(
+    n_orders = n(),
+    reorder_rate = mean(reordered), 
+    .groups = "drop") |> 
+  filter(n_orders >= 100) |> 
+  mutate(text_label = str_c(
+    "Product: ", product_name,
+    "\nOrders: ", n_orders,
+    "\nReorder rate: ", round(reorder_rate, 2)
+  )) |> 
+  plot_ly(
+    x = ~n_orders, y = ~reorder_rate, type = "scatter", mode = "markers",
+    color = ~aisle, text = ~text_label, alpha = 0.5, colors = "viridis"
+  ) |> 
+  layout(
+    xaxis = list(title = "Number of times ordered"),
+    yaxis = list(title = "Proportion reordered")
+  )
+```
+
+### Number of Snack Items Ordered, by Aisle
+
+```{r}
+instacart |> 
+  filter(department == "snacks") |> 
+  count(aisle) |> 
+  mutate(aisle = fct_reorder(aisle, n)) |> 
+  plot_ly(x = ~aisle, y = ~n, color = ~aisle, type = "bar", colors = "viridis") |> 
+  layout(
+    xaxis = list(title = "Aisle", tickangle = 60),
+    yaxis = list(title = "Number of items ordered"))
+```
+
